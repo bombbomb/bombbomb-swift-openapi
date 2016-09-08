@@ -7,7 +7,7 @@
 import Foundation
 
 public class bombbomb-swift-openapiAPI {
-    public static var basePath = "https://dev.api.bombbomb.com/v2"
+    public static var basePath = "https://api.bombbomb.com/v2"
     public static var credential: NSURLCredential?
     public static var customHeaders: [String:String] = [:]  
     static var requestBuilderFactory: RequestBuilderFactory = AlamofireRequestBuilderFactory()
