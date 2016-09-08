@@ -206,6 +206,29 @@ class Decoders {
             }
 
 
+            // Decoder for [JerichoPerformance]
+            Decoders.addDecoder(clazz: [JerichoPerformance].self) { (source: AnyObject) -> [JerichoPerformance] in
+                return Decoders.decode(clazz: [JerichoPerformance].self, source: source)
+            }
+            // Decoder for JerichoPerformance
+            Decoders.addDecoder(clazz: JerichoPerformance.self) { (source: AnyObject) -> JerichoPerformance in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = JerichoPerformance()
+                instance.sent = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["sent"])
+                instance.uniqueViews = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["uniqueViews"])
+                instance.uniqueLandingPageViews = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["uniqueLandingPageViews"])
+                instance.landingPageViews = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["landingPageViews"])
+                instance.delivered = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["delivered"])
+                instance.bounce = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["bounce"])
+                instance.open = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["open"])
+                instance.click = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["click"])
+                instance.videoPlay = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["videoPlay"])
+                instance.abuseComplaints = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["abuseComplaints"])
+                instance.contacts = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["contacts"])
+                return instance
+            }
+
+
             // Decoder for [ModelString]
             Decoders.addDecoder(clazz: [ModelString].self) { (source: AnyObject) -> [ModelString] in
                 return Decoders.decode(clazz: [ModelString].self, source: source)

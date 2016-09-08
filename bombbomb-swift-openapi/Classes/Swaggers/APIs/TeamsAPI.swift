@@ -180,6 +180,63 @@ public class TeamsAPI: APIBase {
     }
 
     /**
+     Gets Jericho performance statistics
+     
+     - parameter jerichoId: (path) ID of the Jericho job 
+     - parameter teamId: (path) ID of team through which Jericho was sent 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getJerichoStats(jerichoId jerichoId: String, teamId: String, completion: ((data: JerichoPerformance?, error: ErrorType?) -> Void)) {
+        getJerichoStatsWithRequestBuilder(jerichoId: jerichoId, teamId: teamId).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     Gets Jericho performance statistics
+     - GET /team/{teamId}/jericho/{jerichoId}/performance
+     - Returns an aggregate view of the performance of a Jericho send
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     - examples: [{example={
+  "open" : "",
+  "sent" : "",
+  "delivered" : "",
+  "abuseComplaints" : "",
+  "click" : "",
+  "videoPlay" : "",
+  "uniqueViews" : "",
+  "bounce" : "",
+  "uniqueLandingPageViews" : "",
+  "contacts" : "",
+  "landingPageViews" : ""
+}, contentType=application/json}]
+     
+     - parameter jerichoId: (path) ID of the Jericho job 
+     - parameter teamId: (path) ID of team through which Jericho was sent 
+
+     - returns: RequestBuilder<JerichoPerformance> 
+     */
+    public class func getJerichoStatsWithRequestBuilder(jerichoId jerichoId: String, teamId: String) -> RequestBuilder<JerichoPerformance> {
+        var path = "/team/{teamId}/jericho/{jerichoId}/performance"
+        path = path.stringByReplacingOccurrencesOfString("{jerichoId}", withString: "\(jerichoId)", options: .LiteralSearch, range: nil)
+        path = path.stringByReplacingOccurrencesOfString("{teamId}", withString: "\(teamId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<JerichoPerformance>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
      Creates a Jericho send.
      
      - parameter config: (body) JSON representing a Jericho configuration 
