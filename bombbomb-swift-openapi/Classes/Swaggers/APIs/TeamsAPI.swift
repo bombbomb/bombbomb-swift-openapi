@@ -11,6 +11,58 @@ import Alamofire
 
 public class TeamsAPI: APIBase {
     /**
+     Add Member to Team
+     
+     - parameter teamId: (path) The team id 
+     - parameter userId: (form) The user id of the member being added to the team. (optional)
+     - parameter userEmail: (form) The email of the member being added to the team. (optional)
+     - parameter admin: (form) Set if the user is an admin of this team. (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func addTeamMember(teamId teamId: String, userId: String? = nil, userEmail: String? = nil, admin: Bool? = nil, completion: ((data: String?, error: ErrorType?) -> Void)) {
+        addTeamMemberWithRequestBuilder(teamId: teamId, userId: userId, userEmail: userEmail, admin: admin).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     Add Member to Team
+     - POST /team/{teamId}/member
+     - Adds a member to a team.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     - examples: [{example="aeiou", contentType=application/json}]
+     
+     - parameter teamId: (path) The team id 
+     - parameter userId: (form) The user id of the member being added to the team. (optional)
+     - parameter userEmail: (form) The email of the member being added to the team. (optional)
+     - parameter admin: (form) Set if the user is an admin of this team. (optional)
+
+     - returns: RequestBuilder<String> 
+     */
+    public class func addTeamMemberWithRequestBuilder(teamId teamId: String, userId: String? = nil, userEmail: String? = nil, admin: Bool? = nil) -> RequestBuilder<String> {
+        var path = "/team/{teamId}/member"
+        path = path.stringByReplacingOccurrencesOfString("{teamId}", withString: "\(teamId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "userId": userId,
+            "userEmail": userEmail,
+            "admin": admin
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<String>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
      Cancel a Jericho Send
      
      - parameter jerichoId: (path) ID of the Jericho Job to cancel 
@@ -49,6 +101,102 @@ public class TeamsAPI: APIBase {
         let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "DELETE", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     Add a Subteam
+     
+     - parameter teamId: (path) The team id 
+     - parameter name: (form) The subteam&#39;s name. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func createSubteam(teamId teamId: String, name: String, completion: ((data: TeamPublicRepresentation?, error: ErrorType?) -> Void)) {
+        createSubteamWithRequestBuilder(teamId: teamId, name: name).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     Add a Subteam
+     - POST /team/{teamId}/subteam
+     - Adds a subteam to a parent team
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     - examples: [{example={
+  "id" : "aeiou",
+  "name" : "aeiou",
+  "createdDate" : "aeiou"
+}, contentType=application/json}]
+     
+     - parameter teamId: (path) The team id 
+     - parameter name: (form) The subteam&#39;s name. 
+
+     - returns: RequestBuilder<TeamPublicRepresentation> 
+     */
+    public class func createSubteamWithRequestBuilder(teamId teamId: String, name: String) -> RequestBuilder<TeamPublicRepresentation> {
+        var path = "/team/{teamId}/subteam"
+        path = path.stringByReplacingOccurrencesOfString("{teamId}", withString: "\(teamId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "name": name
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<TeamPublicRepresentation>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Delete Subteam
+     
+     - parameter teamId: (path) The team id 
+     - parameter subteamId: (form) The subteam you wish to delete. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func deleteSubteam(teamId teamId: String, subteamId: String, completion: ((data: String?, error: ErrorType?) -> Void)) {
+        deleteSubteamWithRequestBuilder(teamId: teamId, subteamId: subteamId).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     Delete Subteam
+     - DELETE /team/{teamId}/subteam
+     - Deletes a subteam
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     - examples: [{example="aeiou", contentType=application/json}]
+     
+     - parameter teamId: (path) The team id 
+     - parameter subteamId: (form) The subteam you wish to delete. 
+
+     - returns: RequestBuilder<String> 
+     */
+    public class func deleteSubteamWithRequestBuilder(teamId teamId: String, subteamId: String) -> RequestBuilder<String> {
+        var path = "/team/{teamId}/subteam"
+        path = path.stringByReplacingOccurrencesOfString("{teamId}", withString: "\(teamId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "subteamId": subteamId
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<String>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
     /**
@@ -237,6 +385,52 @@ public class TeamsAPI: APIBase {
     }
 
     /**
+     List Subteams
+     
+     - parameter teamId: (path) The team id 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getSubteams(teamId teamId: String, completion: ((data: [TeamPublicRepresentation]?, error: ErrorType?) -> Void)) {
+        getSubteamsWithRequestBuilder(teamId: teamId).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     List Subteams
+     - GET /team/{teamId}/subteam
+     - Returns a collection of subteams for a parent team
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     - examples: [{example=[ {
+  "id" : "aeiou",
+  "name" : "aeiou",
+  "createdDate" : "aeiou"
+} ], contentType=application/json}]
+     
+     - parameter teamId: (path) The team id 
+
+     - returns: RequestBuilder<[TeamPublicRepresentation]> 
+     */
+    public class func getSubteamsWithRequestBuilder(teamId teamId: String) -> RequestBuilder<[TeamPublicRepresentation]> {
+        var path = "/team/{teamId}/subteam"
+        path = path.stringByReplacingOccurrencesOfString("{teamId}", withString: "\(teamId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<[TeamPublicRepresentation]>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
      Creates a Jericho send.
      
      - parameter config: (body) JSON representing a Jericho configuration 
@@ -287,6 +481,101 @@ public class TeamsAPI: APIBase {
         let requestBuilder: RequestBuilder<JerichoConfiguration>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     Remove Member from Team
+     
+     - parameter teamId: (path) The team id 
+     - parameter userId: (path) The user id of the member being removed. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func removeMemberFromTeam(teamId teamId: String, userId: String, completion: ((data: String?, error: ErrorType?) -> Void)) {
+        removeMemberFromTeamWithRequestBuilder(teamId: teamId, userId: userId).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     Remove Member from Team
+     - DELETE /team/{teamId}/member/{userId}
+     - Removes a member from a team.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     - examples: [{example="aeiou", contentType=application/json}]
+     
+     - parameter teamId: (path) The team id 
+     - parameter userId: (path) The user id of the member being removed. 
+
+     - returns: RequestBuilder<String> 
+     */
+    public class func removeMemberFromTeamWithRequestBuilder(teamId teamId: String, userId: String) -> RequestBuilder<String> {
+        var path = "/team/{teamId}/member/{userId}"
+        path = path.stringByReplacingOccurrencesOfString("{teamId}", withString: "\(teamId)", options: .LiteralSearch, range: nil)
+        path = path.stringByReplacingOccurrencesOfString("{userId}", withString: "\(userId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<String>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     Update a team
+     
+     - parameter teamId: (path) The team id 
+     - parameter name: (form) The name of the team (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func updateTeam(teamId teamId: String, name: String? = nil, completion: ((data: TeamPublicRepresentation?, error: ErrorType?) -> Void)) {
+        updateTeamWithRequestBuilder(teamId: teamId, name: name).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     Update a team
+     - POST /team/{teamId}
+     - Update fields on a team
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     - examples: [{example={
+  "id" : "aeiou",
+  "name" : "aeiou",
+  "createdDate" : "aeiou"
+}, contentType=application/json}]
+     
+     - parameter teamId: (path) The team id 
+     - parameter name: (form) The name of the team (optional)
+
+     - returns: RequestBuilder<TeamPublicRepresentation> 
+     */
+    public class func updateTeamWithRequestBuilder(teamId teamId: String, name: String? = nil) -> RequestBuilder<TeamPublicRepresentation> {
+        var path = "/team/{teamId}"
+        path = path.stringByReplacingOccurrencesOfString("{teamId}", withString: "\(teamId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "name": name
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<TeamPublicRepresentation>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
 }

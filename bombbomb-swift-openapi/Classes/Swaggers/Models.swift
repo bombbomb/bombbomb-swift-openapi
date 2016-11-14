@@ -153,6 +153,63 @@ class Decoders {
             }
 
 
+            // Decoder for [Curriculum]
+            Decoders.addDecoder(clazz: [Curriculum].self) { (source: AnyObject) -> [Curriculum] in
+                return Decoders.decode(clazz: [Curriculum].self, source: source)
+            }
+            // Decoder for Curriculum
+            Decoders.addDecoder(clazz: Curriculum.self) { (source: AnyObject) -> Curriculum in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = Curriculum()
+                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
+                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                instance.htmlIntro = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["htmlIntro"])
+                instance.imgUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["imgUrl"])
+                instance.itemCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["itemCount"])
+                instance.renderAs = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["renderAs"])
+                instance.visibleToAllUsers = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["visibleToAllUsers"])
+                instance.progress = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["progress"])
+                return instance
+            }
+
+
+            // Decoder for [CurriculumUserProgress]
+            Decoders.addDecoder(clazz: [CurriculumUserProgress].self) { (source: AnyObject) -> [CurriculumUserProgress] in
+                return Decoders.decode(clazz: [CurriculumUserProgress].self, source: source)
+            }
+            // Decoder for CurriculumUserProgress
+            Decoders.addDecoder(clazz: CurriculumUserProgress.self) { (source: AnyObject) -> CurriculumUserProgress in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = CurriculumUserProgress()
+                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
+                instance.userId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["userId"])
+                instance.curriculumItemId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["curriculumItemId"])
+                instance.curriculumId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["curriculumId"])
+                instance.completedDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["completedDate"])
+                return instance
+            }
+
+
+            // Decoder for [CurriculumWithProgress]
+            Decoders.addDecoder(clazz: [CurriculumWithProgress].self) { (source: AnyObject) -> [CurriculumWithProgress] in
+                return Decoders.decode(clazz: [CurriculumWithProgress].self, source: source)
+            }
+            // Decoder for CurriculumWithProgress
+            Decoders.addDecoder(clazz: CurriculumWithProgress.self) { (source: AnyObject) -> CurriculumWithProgress in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = CurriculumWithProgress()
+                instance.progress = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["progress"])
+                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
+                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                instance.htmlIntro = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["htmlIntro"])
+                instance.imgUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["imgUrl"])
+                instance.itemCount = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["itemCount"])
+                instance.renderAs = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["renderAs"])
+                instance.visibleToAllUsers = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["visibleToAllUsers"])
+                return instance
+            }
+
+
             // Decoder for [InlineResponse200]
             Decoders.addDecoder(clazz: [InlineResponse200].self) { (source: AnyObject) -> [InlineResponse200] in
                 return Decoders.decode(clazz: [InlineResponse200].self, source: source)
@@ -255,6 +312,21 @@ class Decoders {
                 instance.grantsAllowed = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["grantsAllowed"])
                 instance.owningUserId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["owningUserId"])
                 instance.redirectUri = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["redirectUri"])
+                return instance
+            }
+
+
+            // Decoder for [TeamPublicRepresentation]
+            Decoders.addDecoder(clazz: [TeamPublicRepresentation].self) { (source: AnyObject) -> [TeamPublicRepresentation] in
+                return Decoders.decode(clazz: [TeamPublicRepresentation].self, source: source)
+            }
+            // Decoder for TeamPublicRepresentation
+            Decoders.addDecoder(clazz: TeamPublicRepresentation.self) { (source: AnyObject) -> TeamPublicRepresentation in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = TeamPublicRepresentation()
+                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
+                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                instance.createdDate = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["createdDate"])
                 return instance
             }
 

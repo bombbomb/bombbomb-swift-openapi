@@ -144,6 +144,40 @@ public class WebhooksAPI: APIBase {
     }
 
     /**
+     Describe WebHook Events
+     
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func listWebHookEvents(completion: ((error: ErrorType?) -> Void)) {
+        listWebHookEventsWithRequestBuilder().execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Describe WebHook Events
+     - GET /webhook/events
+     - Returns example Webhook events for each kind of possible event.
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func listWebHookEventsWithRequestBuilder() -> RequestBuilder<Void> {
+        let path = "/webhook/events"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
      Sends test Webhook
      
      - parameter completion: completion handler to receive the data and the error objects
