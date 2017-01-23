@@ -20,6 +20,8 @@ public class VideoEmailPrompt: JSONEncodable {
     public var emailSubjectLine: String?
     /** The HTML content of the final email */
     public var emailContent: String?
+    /** The URL of a thumbnail image for this prompt */
+    public var thumbnailUrl: String?
     /** Email addresses to send the final email to, can be mixed with listIds. */
     public var toEmailAddresses: [String]?
     /** List Ids to send the final email to */
@@ -28,8 +30,12 @@ public class VideoEmailPrompt: JSONEncodable {
     public var jerichoId: String?
     /** The prompt&#39;s subject line */
     public var promptSubject: String?
-    /** The HTML body of the prompt */
+    /** The suggested script of the prompt. */
     public var promptHtml: String?
+    /** A paragraph intro statement about the purpose of the email you&#39;re recording a video for. */
+    public var promptIntro: String?
+    /** An example or explanatory video to help the user understand what to say. */
+    public var exampleVideoId: String?
     /** Whether to send the email if no video is recorded. If set to require a video, and none is added before the videoDueDate, the prompt is cancelled. */
     public var sendWithoutVideo: Bool?
     /** When the video must be recorded by */
@@ -42,10 +48,18 @@ public class VideoEmailPrompt: JSONEncodable {
     public var emailId: String?
     /** The job sent by the prompt Read Only. */
     public var jobId: String?
+    /** The bot that created the prompt. */
+    public var promptBotId: String?
+    /** The client group campaign that created the prompt. */
+    public var clientGroupId: String?
     /** The status of the prompt: created &#x3D; 0, sent &#x3D; 10, recorded &#x3D; 20, job_created &#x3D; 30, timed_out &#x3D; 40, declined &#x3D; 50 Read Only */
     public var status: Int32?
     /** Controls whether a user template is applied to the message as it is sent */
-    public var doNotApplyTemplate: Bool?
+    public var applyTemplate: Bool?
+    /** When the email was first sent out */
+    public var createdDate: NSDate?
+    /** When the user was last notified about a prompt email waiting for a video */
+    public var lastNotified: NSDate?
 
     public init() {}
 
@@ -57,19 +71,26 @@ public class VideoEmailPrompt: JSONEncodable {
         nillableDictionary["templateId"] = self.templateId
         nillableDictionary["emailSubjectLine"] = self.emailSubjectLine
         nillableDictionary["emailContent"] = self.emailContent
+        nillableDictionary["thumbnailUrl"] = self.thumbnailUrl
         nillableDictionary["toEmailAddresses"] = self.toEmailAddresses?.encodeToJSON()
         nillableDictionary["toLists"] = self.toLists?.encodeToJSON()
         nillableDictionary["jerichoId"] = self.jerichoId
         nillableDictionary["promptSubject"] = self.promptSubject
         nillableDictionary["promptHtml"] = self.promptHtml
+        nillableDictionary["promptIntro"] = self.promptIntro
+        nillableDictionary["exampleVideoId"] = self.exampleVideoId
         nillableDictionary["sendWithoutVideo"] = self.sendWithoutVideo
         nillableDictionary["videoDueDate"] = self.videoDueDate?.encodeToJSON()
         nillableDictionary["scheduledSendDate"] = self.scheduledSendDate?.encodeToJSON()
         nillableDictionary["videoId"] = self.videoId
         nillableDictionary["emailId"] = self.emailId
         nillableDictionary["jobId"] = self.jobId
+        nillableDictionary["promptBotId"] = self.promptBotId
+        nillableDictionary["clientGroupId"] = self.clientGroupId
         nillableDictionary["status"] = self.status?.encodeToJSON()
-        nillableDictionary["doNotApplyTemplate"] = self.doNotApplyTemplate
+        nillableDictionary["applyTemplate"] = self.applyTemplate
+        nillableDictionary["createdDate"] = self.createdDate?.encodeToJSON()
+        nillableDictionary["lastNotified"] = self.lastNotified?.encodeToJSON()
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }

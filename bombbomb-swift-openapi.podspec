@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name = 'bombbomb-swift-openapi'
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
-  s.version = '2.0.21454'
+  s.version = '2.0.22196'
   s.source = { :git => 'git@github.com:swagger-api/swagger-mustache.git', :tag => 'v1.0.0' }
   s.authors = 'Swagger Codegen'
   s.license = 'Apache License, Version 2.0'

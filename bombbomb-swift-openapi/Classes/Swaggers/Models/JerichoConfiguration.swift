@@ -13,10 +13,18 @@ public class JerichoConfiguration: JSONEncodable {
     public var clientGroupId: String?
     /** When the email should be sent. */
     public var sendDate: NSDate?
-    /** Determines whether this is a static or prompted send. */
+    /** Video Prompt: Determines whether this is a static or prompted send. */
     public var isPrompt: Bool?
+    /** Controls whether or not the content is printed into a template. */
+    public var printToTemplate: Bool?
     /** Static send: The Email to send on behalf of the group members. */
     public var emailId: String?
+    /** Video Prompt: The Video to include as an example for prompted users. */
+    public var exampleVideoId: String?
+    /** The Video to include in the tracking follow up. */
+    public var followUpVideoId: String?
+    /** Video Prompt: The intro text directed toward prompted users. */
+    public var promptIntro: String?
     /** Video Prompt: The subject line prompting the user to record a video. */
     public var promptSubject: String?
     /** Video Prompt: The HTML body of the email prompting the user to record a video. */
@@ -39,7 +47,11 @@ public class JerichoConfiguration: JSONEncodable {
         nillableDictionary["clientGroupId"] = self.clientGroupId
         nillableDictionary["sendDate"] = self.sendDate?.encodeToJSON()
         nillableDictionary["isPrompt"] = self.isPrompt
+        nillableDictionary["printToTemplate"] = self.printToTemplate
         nillableDictionary["emailId"] = self.emailId
+        nillableDictionary["exampleVideoId"] = self.exampleVideoId
+        nillableDictionary["followUpVideoId"] = self.followUpVideoId
+        nillableDictionary["promptIntro"] = self.promptIntro
         nillableDictionary["promptSubject"] = self.promptSubject
         nillableDictionary["promptBody"] = self.promptBody
         nillableDictionary["emailSubject"] = self.emailSubject

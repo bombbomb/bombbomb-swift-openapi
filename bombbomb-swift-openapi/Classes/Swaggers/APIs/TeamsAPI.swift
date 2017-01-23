@@ -294,17 +294,21 @@ public class TeamsAPI: APIBase {
        - type: oauth2
        - name: BBOAuth2
      - examples: [{example=[ {
-  "sendDate" : "2000-01-23T04:56:07.000+00:00",
-  "id" : "aeiou",
   "clientGroupId" : "aeiou",
-  "emailId" : "aeiou",
+  "exampleVideoId" : "aeiou",
   "sendWithoutVideo" : true,
-  "emailBody" : "aeiou",
   "status" : "aeiou",
+  "promptIntro" : "aeiou",
   "promptBody" : "aeiou",
   "emailSubject" : "aeiou",
-  "promptSubject" : "aeiou",
-  "isPrompt" : true
+  "printToTemplate" : true,
+  "id" : "aeiou",
+  "sendDate" : "2000-01-23T04:56:07.000+00:00",
+  "emailId" : "aeiou",
+  "followUpVideoId" : "aeiou",
+  "emailBody" : "aeiou",
+  "isPrompt" : true,
+  "promptSubject" : "aeiou"
 } ], contentType=application/json}]
      
      - parameter teamId: (path) The team whose Jericho sends you wish to see. 
@@ -452,17 +456,21 @@ public class TeamsAPI: APIBase {
        - type: oauth2
        - name: BBOAuth2
      - examples: [{example={
-  "sendDate" : "2000-01-23T04:56:07.000+00:00",
-  "id" : "aeiou",
   "clientGroupId" : "aeiou",
-  "emailId" : "aeiou",
+  "exampleVideoId" : "aeiou",
   "sendWithoutVideo" : true,
-  "emailBody" : "aeiou",
   "status" : "aeiou",
+  "promptIntro" : "aeiou",
   "promptBody" : "aeiou",
   "emailSubject" : "aeiou",
-  "promptSubject" : "aeiou",
-  "isPrompt" : true
+  "printToTemplate" : true,
+  "id" : "aeiou",
+  "sendDate" : "2000-01-23T04:56:07.000+00:00",
+  "emailId" : "aeiou",
+  "followUpVideoId" : "aeiou",
+  "emailBody" : "aeiou",
+  "isPrompt" : true,
+  "promptSubject" : "aeiou"
 }, contentType=application/json}]
      
      - parameter config: (body) JSON representing a Jericho configuration 

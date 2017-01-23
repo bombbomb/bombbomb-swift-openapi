@@ -252,7 +252,11 @@ class Decoders {
                 instance.clientGroupId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["clientGroupId"])
                 instance.sendDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["sendDate"])
                 instance.isPrompt = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["isPrompt"])
+                instance.printToTemplate = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["printToTemplate"])
                 instance.emailId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["emailId"])
+                instance.exampleVideoId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["exampleVideoId"])
+                instance.followUpVideoId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["followUpVideoId"])
+                instance.promptIntro = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptIntro"])
                 instance.promptSubject = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptSubject"])
                 instance.promptBody = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptBody"])
                 instance.emailSubject = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["emailSubject"])
@@ -316,6 +320,57 @@ class Decoders {
             }
 
 
+            // Decoder for [PromptBotBot]
+            Decoders.addDecoder(clazz: [PromptBotBot].self) { (source: AnyObject) -> [PromptBotBot] in
+                return Decoders.decode(clazz: [PromptBotBot].self, source: source)
+            }
+            // Decoder for PromptBotBot
+            Decoders.addDecoder(clazz: PromptBotBot.self) { (source: AnyObject) -> PromptBotBot in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = PromptBotBot()
+                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
+                instance.userId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["userId"])
+                instance.emailId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["emailId"])
+                instance.listId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["listId"])
+                instance.promptSubject = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptSubject"])
+                instance.promptBody = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptBody"])
+                instance.status = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["status"])
+                instance.startDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["startDate"])
+                instance.endDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["endDate"])
+                instance.botTypeId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["botTypeId"])
+                instance.templateId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["templateId"])
+                return instance
+            }
+
+
+            // Decoder for [SignUploadRequest]
+            Decoders.addDecoder(clazz: [SignUploadRequest].self) { (source: AnyObject) -> [SignUploadRequest] in
+                return Decoders.decode(clazz: [SignUploadRequest].self, source: source)
+            }
+            // Decoder for SignUploadRequest
+            Decoders.addDecoder(clazz: SignUploadRequest.self) { (source: AnyObject) -> SignUploadRequest in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = SignUploadRequest()
+                instance.expiration = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["expiration"])
+                instance.conditions = Decoders.decodeOptional(clazz: AnyObject.self, source: sourceDictionary["conditions"])
+                return instance
+            }
+
+
+            // Decoder for [SignUploadResponse]
+            Decoders.addDecoder(clazz: [SignUploadResponse].self) { (source: AnyObject) -> [SignUploadResponse] in
+                return Decoders.decode(clazz: [SignUploadResponse].self, source: source)
+            }
+            // Decoder for SignUploadResponse
+            Decoders.addDecoder(clazz: SignUploadResponse.self) { (source: AnyObject) -> SignUploadResponse in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = SignUploadResponse()
+                instance.policy = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["policy"])
+                instance.signature = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["signature"])
+                return instance
+            }
+
+
             // Decoder for [TeamPublicRepresentation]
             Decoders.addDecoder(clazz: [TeamPublicRepresentation].self) { (source: AnyObject) -> [TeamPublicRepresentation] in
                 return Decoders.decode(clazz: [TeamPublicRepresentation].self, source: source)
@@ -344,19 +399,69 @@ class Decoders {
                 instance.templateId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["templateId"])
                 instance.emailSubjectLine = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["emailSubjectLine"])
                 instance.emailContent = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["emailContent"])
+                instance.thumbnailUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["thumbnailUrl"])
                 instance.toEmailAddresses = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["toEmailAddresses"])
                 instance.toLists = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["toLists"])
                 instance.jerichoId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["jerichoId"])
                 instance.promptSubject = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptSubject"])
                 instance.promptHtml = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptHtml"])
+                instance.promptIntro = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptIntro"])
+                instance.exampleVideoId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["exampleVideoId"])
                 instance.sendWithoutVideo = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["sendWithoutVideo"])
                 instance.videoDueDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["videoDueDate"])
                 instance.scheduledSendDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["scheduledSendDate"])
                 instance.videoId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["videoId"])
                 instance.emailId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["emailId"])
                 instance.jobId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["jobId"])
+                instance.promptBotId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptBotId"])
+                instance.clientGroupId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["clientGroupId"])
                 instance.status = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["status"])
-                instance.doNotApplyTemplate = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["doNotApplyTemplate"])
+                instance.applyTemplate = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["applyTemplate"])
+                instance.createdDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["createdDate"])
+                instance.lastNotified = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["lastNotified"])
+                return instance
+            }
+
+
+            // Decoder for [VideoPublicRepresentation]
+            Decoders.addDecoder(clazz: [VideoPublicRepresentation].self) { (source: AnyObject) -> [VideoPublicRepresentation] in
+                return Decoders.decode(clazz: [VideoPublicRepresentation].self, source: source)
+            }
+            // Decoder for VideoPublicRepresentation
+            Decoders.addDecoder(clazz: VideoPublicRepresentation.self) { (source: AnyObject) -> VideoPublicRepresentation in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = VideoPublicRepresentation()
+                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
+                instance.userId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["userId"])
+                instance.status = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["status"])
+                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                instance.description = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["description"])
+                instance.thumbUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["thumbUrl"])
+                instance.videoUrls = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["videoUrls"])
+                instance.shortUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["shortUrl"])
+                instance.height = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["height"])
+                instance.width = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["width"])
+                instance.uploadDate = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["uploadDate"])
+                return instance
+            }
+
+
+            // Decoder for [VideoRecorderMethodResponse]
+            Decoders.addDecoder(clazz: [VideoRecorderMethodResponse].self) { (source: AnyObject) -> [VideoRecorderMethodResponse] in
+                return Decoders.decode(clazz: [VideoRecorderMethodResponse].self, source: source)
+            }
+            // Decoder for VideoRecorderMethodResponse
+            Decoders.addDecoder(clazz: VideoRecorderMethodResponse.self) { (source: AnyObject) -> VideoRecorderMethodResponse in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = VideoRecorderMethodResponse()
+                instance.userId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["user_id"])
+                instance.email = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["email"])
+                instance.clientId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["client_id"])
+                instance.vidId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["vid_id"])
+                instance.content = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["content"])
+                instance.width = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["width"])
+                instance.height = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["height"])
+                instance.https = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["https"])
                 return instance
             }
         }
