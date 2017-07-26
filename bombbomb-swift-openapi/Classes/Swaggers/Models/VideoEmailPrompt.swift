@@ -22,8 +22,8 @@ public class VideoEmailPrompt: JSONEncodable {
     public var emailContent: String?
     /** The URL of a thumbnail image for this prompt */
     public var thumbnailUrl: String?
-    /** Email addresses to send the final email to, can be mixed with listIds. */
-    public var toEmailAddresses: [String]?
+    /** Contact Id to send the final email to */
+    public var contactId: String?
     /** List Ids to send the final email to */
     public var toLists: [String]?
     /** If sent in a jericho context, this will have the jericho id */
@@ -36,6 +36,8 @@ public class VideoEmailPrompt: JSONEncodable {
     public var promptIntro: String?
     /** An example or explanatory video to help the user understand what to say. */
     public var exampleVideoId: String?
+    /** An example or explanatory video to help the user understand what to say. */
+    public var followupVideoId: String?
     /** Whether to send the email if no video is recorded. If set to require a video, and none is added before the videoDueDate, the prompt is cancelled. */
     public var sendWithoutVideo: Bool?
     /** When the video must be recorded by */
@@ -72,13 +74,14 @@ public class VideoEmailPrompt: JSONEncodable {
         nillableDictionary["emailSubjectLine"] = self.emailSubjectLine
         nillableDictionary["emailContent"] = self.emailContent
         nillableDictionary["thumbnailUrl"] = self.thumbnailUrl
-        nillableDictionary["toEmailAddresses"] = self.toEmailAddresses?.encodeToJSON()
+        nillableDictionary["contactId"] = self.contactId
         nillableDictionary["toLists"] = self.toLists?.encodeToJSON()
         nillableDictionary["jerichoId"] = self.jerichoId
         nillableDictionary["promptSubject"] = self.promptSubject
         nillableDictionary["promptHtml"] = self.promptHtml
         nillableDictionary["promptIntro"] = self.promptIntro
         nillableDictionary["exampleVideoId"] = self.exampleVideoId
+        nillableDictionary["followupVideoId"] = self.followupVideoId
         nillableDictionary["sendWithoutVideo"] = self.sendWithoutVideo
         nillableDictionary["videoDueDate"] = self.videoDueDate?.encodeToJSON()
         nillableDictionary["scheduledSendDate"] = self.scheduledSendDate?.encodeToJSON()

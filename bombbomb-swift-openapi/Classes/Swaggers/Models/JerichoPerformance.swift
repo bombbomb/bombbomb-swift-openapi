@@ -10,6 +10,8 @@ import Foundation
 
 /** Reports on the aggregate performance of a Jericho send */
 public class JerichoPerformance: JSONEncodable {
+    /** The jericho id */
+    public var jerichoId: Int32?
     /** The number of emails sent */
     public var sent: Int32?
     /** The unique number of people that viewed the email */
@@ -32,12 +34,19 @@ public class JerichoPerformance: JSONEncodable {
     public var abuseComplaints: Int32?
     /** The total number of contacts submitted to be sent, may be more than was sent to */
     public var contacts: Int32?
+    /** The total number of prompts sent to members of the client group */
+    public var promptsSent: Int32?
+    /** The total number of prompts sent that included a personal recording */
+    public var promptsWithRecordings: Int32?
+    /** The total number of members that chose not to send a prompt */
+    public var promptsOptedOut: Int32?
 
     public init() {}
 
     // MARK: JSONEncodable
     func encodeToJSON() -> AnyObject {
         var nillableDictionary = [String:AnyObject?]()
+        nillableDictionary["jerichoId"] = self.jerichoId?.encodeToJSON()
         nillableDictionary["sent"] = self.sent?.encodeToJSON()
         nillableDictionary["uniqueViews"] = self.uniqueViews?.encodeToJSON()
         nillableDictionary["uniqueLandingPageViews"] = self.uniqueLandingPageViews?.encodeToJSON()
@@ -49,6 +58,9 @@ public class JerichoPerformance: JSONEncodable {
         nillableDictionary["videoPlay"] = self.videoPlay?.encodeToJSON()
         nillableDictionary["abuseComplaints"] = self.abuseComplaints?.encodeToJSON()
         nillableDictionary["contacts"] = self.contacts?.encodeToJSON()
+        nillableDictionary["promptsSent"] = self.promptsSent?.encodeToJSON()
+        nillableDictionary["promptsWithRecordings"] = self.promptsWithRecordings?.encodeToJSON()
+        nillableDictionary["promptsOptedOut"] = self.promptsOptedOut?.encodeToJSON()
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }

@@ -11,6 +11,52 @@ import Alamofire
 
 public class VideosAPI: APIBase {
     /**
+     Video Encoding Status
+     
+     - parameter videoId: (path) The video&#39;s id. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getVideoEncodingStatus(videoId videoId: String, completion: ((data: VideoEncodingStatusResponse?, error: ErrorType?) -> Void)) {
+        getVideoEncodingStatusWithRequestBuilder(videoId: videoId).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     Video Encoding Status
+     - GET /videos/{videoId}/status
+     - Get information about the current state of encoding for a given video id.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     - examples: [{example={
+  "progress" : "",
+  "isReady" : true,
+  "isFailed" : true
+}, contentType=application/json}]
+     
+     - parameter videoId: (path) The video&#39;s id. 
+
+     - returns: RequestBuilder<VideoEncodingStatusResponse> 
+     */
+    public class func getVideoEncodingStatusWithRequestBuilder(videoId videoId: String) -> RequestBuilder<VideoEncodingStatusResponse> {
+        var path = "/videos/{videoId}/status"
+        path = path.stringByReplacingOccurrencesOfString("{videoId}", withString: "\(videoId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<VideoEncodingStatusResponse>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
      Get Live Video Recorder HTML
      
      - parameter width: (query) The width of the recorder to present. (optional)

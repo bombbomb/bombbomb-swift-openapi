@@ -15,13 +15,13 @@ public class EmailsAPI: APIBase {
      
      - parameter templateId: (form) The template id to be printed. 
      - parameter content: (form) The content of the email. 
-     - parameter replace: (form) Set whether to replace video placeholders with video id. 
+     - parameter emailId: (form) The email id to be printed to. (optional)
      - parameter videoId: (form) A video to replace video place holders with. (optional)
      - parameter subjectLine: (form) The subject line to be printed. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func createPrintingPressEmail(templateId templateId: String, content: String, replace: Bool, videoId: String? = nil, subjectLine: String? = nil, completion: ((error: ErrorType?) -> Void)) {
-        createPrintingPressEmailWithRequestBuilder(templateId: templateId, content: content, replace: replace, videoId: videoId, subjectLine: subjectLine).execute { (response, error) -> Void in
+    public class func createPrintingPressEmail(templateId templateId: String, content: String, emailId: String? = nil, videoId: String? = nil, subjectLine: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        createPrintingPressEmailWithRequestBuilder(templateId: templateId, content: content, emailId: emailId, videoId: videoId, subjectLine: subjectLine).execute { (response, error) -> Void in
             completion(error: error);
         }
     }
@@ -30,27 +30,27 @@ public class EmailsAPI: APIBase {
     /**
      Create an Email with Printing Press
      - POST /emails/print
-     - Prints an email using the template id and content to the users account.If a video id, is include it will replace any video placeholders with that video.
+     - Prints an email using the template id and content to the users account.If a video id is included, it will replace any video placeholders with that video.
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
      
      - parameter templateId: (form) The template id to be printed. 
      - parameter content: (form) The content of the email. 
-     - parameter replace: (form) Set whether to replace video placeholders with video id. 
+     - parameter emailId: (form) The email id to be printed to. (optional)
      - parameter videoId: (form) A video to replace video place holders with. (optional)
      - parameter subjectLine: (form) The subject line to be printed. (optional)
 
      - returns: RequestBuilder<Void> 
      */
-    public class func createPrintingPressEmailWithRequestBuilder(templateId templateId: String, content: String, replace: Bool, videoId: String? = nil, subjectLine: String? = nil) -> RequestBuilder<Void> {
+    public class func createPrintingPressEmailWithRequestBuilder(templateId templateId: String, content: String, emailId: String? = nil, videoId: String? = nil, subjectLine: String? = nil) -> RequestBuilder<Void> {
         let path = "/emails/print"
         let URLString = bombbomb-swift-openapiAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [
             "templateId": templateId,
             "content": content,
-            "replace": replace,
+            "emailId": emailId,
             "videoId": videoId,
             "subjectLine": subjectLine
         ]

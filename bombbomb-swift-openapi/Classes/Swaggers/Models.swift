@@ -275,6 +275,7 @@ class Decoders {
             Decoders.addDecoder(clazz: JerichoPerformance.self) { (source: AnyObject) -> JerichoPerformance in
                 let sourceDictionary = source as! [NSObject:AnyObject]
                 let instance = JerichoPerformance()
+                instance.jerichoId = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["jerichoId"])
                 instance.sent = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["sent"])
                 instance.uniqueViews = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["uniqueViews"])
                 instance.uniqueLandingPageViews = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["uniqueLandingPageViews"])
@@ -286,6 +287,9 @@ class Decoders {
                 instance.videoPlay = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["videoPlay"])
                 instance.abuseComplaints = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["abuseComplaints"])
                 instance.contacts = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["contacts"])
+                instance.promptsSent = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["promptsSent"])
+                instance.promptsWithRecordings = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["promptsWithRecordings"])
+                instance.promptsOptedOut = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["promptsOptedOut"])
                 return instance
             }
 
@@ -320,25 +324,29 @@ class Decoders {
             }
 
 
-            // Decoder for [PromptBotBot]
-            Decoders.addDecoder(clazz: [PromptBotBot].self) { (source: AnyObject) -> [PromptBotBot] in
-                return Decoders.decode(clazz: [PromptBotBot].self, source: source)
+            // Decoder for [PromptBot]
+            Decoders.addDecoder(clazz: [PromptBot].self) { (source: AnyObject) -> [PromptBot] in
+                return Decoders.decode(clazz: [PromptBot].self, source: source)
             }
-            // Decoder for PromptBotBot
-            Decoders.addDecoder(clazz: PromptBotBot.self) { (source: AnyObject) -> PromptBotBot in
+            // Decoder for PromptBot
+            Decoders.addDecoder(clazz: PromptBot.self) { (source: AnyObject) -> PromptBot in
                 let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = PromptBotBot()
+                let instance = PromptBot()
                 instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
                 instance.userId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["userId"])
                 instance.emailId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["emailId"])
                 instance.listId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["listId"])
-                instance.promptSubject = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptSubject"])
-                instance.promptBody = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptBody"])
-                instance.status = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["status"])
+                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                instance.contactFieldValueColumn = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["contactFieldValueColumn"])
+                instance.status = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["status"])
                 instance.startDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["startDate"])
                 instance.endDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["endDate"])
                 instance.botTypeId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["botTypeId"])
                 instance.templateId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["templateId"])
+                instance.videoId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["videoId"])
+                instance.content = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["content"])
+                instance.subject = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["subject"])
+                instance.generatedBy = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["generatedBy"])
                 return instance
             }
 
@@ -400,13 +408,14 @@ class Decoders {
                 instance.emailSubjectLine = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["emailSubjectLine"])
                 instance.emailContent = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["emailContent"])
                 instance.thumbnailUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["thumbnailUrl"])
-                instance.toEmailAddresses = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["toEmailAddresses"])
+                instance.contactId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["contactId"])
                 instance.toLists = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["toLists"])
                 instance.jerichoId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["jerichoId"])
                 instance.promptSubject = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptSubject"])
                 instance.promptHtml = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptHtml"])
                 instance.promptIntro = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptIntro"])
                 instance.exampleVideoId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["exampleVideoId"])
+                instance.followupVideoId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["followupVideoId"])
                 instance.sendWithoutVideo = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["sendWithoutVideo"])
                 instance.videoDueDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["videoDueDate"])
                 instance.scheduledSendDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["scheduledSendDate"])
@@ -419,6 +428,21 @@ class Decoders {
                 instance.applyTemplate = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["applyTemplate"])
                 instance.createdDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["createdDate"])
                 instance.lastNotified = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["lastNotified"])
+                return instance
+            }
+
+
+            // Decoder for [VideoEncodingStatusResponse]
+            Decoders.addDecoder(clazz: [VideoEncodingStatusResponse].self) { (source: AnyObject) -> [VideoEncodingStatusResponse] in
+                return Decoders.decode(clazz: [VideoEncodingStatusResponse].self, source: source)
+            }
+            // Decoder for VideoEncodingStatusResponse
+            Decoders.addDecoder(clazz: VideoEncodingStatusResponse.self) { (source: AnyObject) -> VideoEncodingStatusResponse in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = VideoEncodingStatusResponse()
+                instance.isReady = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["isReady"])
+                instance.isFailed = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["isFailed"])
+                instance.progress = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["progress"])
                 return instance
             }
 
