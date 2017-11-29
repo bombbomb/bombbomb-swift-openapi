@@ -316,6 +316,61 @@ public class TeamsAPI: APIBase {
     }
 
     /**
+     * enum for parameter memberStatus
+     */
+    public enum MemberStatus_getClientGroupStatistics: String { 
+        case All = "all"
+        case Active = "active"
+        case Inactive = "inactive"
+        case SelfPaid = "self-paid"
+    }
+
+    /**
+     Get Team statistics
+     
+     - parameter teamId: (path) The team id 
+     - parameter memberStatus: (query) The status of members to query for (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getClientGroupStatistics(teamId teamId: String, memberStatus: MemberStatus_getClientGroupStatistics? = nil, completion: ((error: ErrorType?) -> Void)) {
+        getClientGroupStatisticsWithRequestBuilder(teamId: teamId, memberStatus: memberStatus).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get Team statistics
+     - GET /team/{teamId}/stats
+     - Get top level statistic data for a Team
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter teamId: (path) The team id 
+     - parameter memberStatus: (query) The status of members to query for (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getClientGroupStatisticsWithRequestBuilder(teamId teamId: String, memberStatus: MemberStatus_getClientGroupStatistics? = nil) -> RequestBuilder<Void> {
+        var path = "/team/{teamId}/stats"
+        path = path.stringByReplacingOccurrencesOfString("{teamId}", withString: "\(teamId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "memberStatus": memberStatus?.rawValue
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
      List Jericho Sends
      
      - parameter teamId: (path) The team whose Jericho sends you wish to see. 
@@ -435,6 +490,88 @@ public class TeamsAPI: APIBase {
     }
 
     /**
+     * enum for parameter orderBy
+     */
+    public enum OrderBy_getPagedClientGroupMembers: String { 
+        case Jobs = "jobs"
+        case Logins = "logins"
+        case Videos = "videos"
+        case Contacts = "contacts"
+        case Firstname = "firstName"
+        case Lastname = "lastName"
+        case Status = "status"
+        case Isadmin = "isAdmin"
+    }
+
+    /**
+     * enum for parameter orderDirection
+     */
+    public enum OrderDirection_getPagedClientGroupMembers: String { 
+        case Asc = "ASC"
+        case Desc = "DESC"
+    }
+
+    /**
+     List Team Members
+     
+     - parameter teamId: (path) The team id 
+     - parameter pageSize: (query) Amount of records to return in a page. 
+     - parameter page: (query) The page to return. 
+     - parameter status: (query) The status type to filter by. (optional)
+     - parameter search: (query) Filter results with names that match the search term. (optional)
+     - parameter orderBy: (query) Key to order results by (optional)
+     - parameter orderDirection: (query) ASC or DESC (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getPagedClientGroupMembers(teamId teamId: String, pageSize: String, page: String, status: String? = nil, search: String? = nil, orderBy: OrderBy_getPagedClientGroupMembers? = nil, orderDirection: OrderDirection_getPagedClientGroupMembers? = nil, completion: ((error: ErrorType?) -> Void)) {
+        getPagedClientGroupMembersWithRequestBuilder(teamId: teamId, pageSize: pageSize, page: page, status: status, search: search, orderBy: orderBy, orderDirection: orderDirection).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     List Team Members
+     - GET /team/{teamId}/members
+     - Get a paginated listing of Team members
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter teamId: (path) The team id 
+     - parameter pageSize: (query) Amount of records to return in a page. 
+     - parameter page: (query) The page to return. 
+     - parameter status: (query) The status type to filter by. (optional)
+     - parameter search: (query) Filter results with names that match the search term. (optional)
+     - parameter orderBy: (query) Key to order results by (optional)
+     - parameter orderDirection: (query) ASC or DESC (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getPagedClientGroupMembersWithRequestBuilder(teamId teamId: String, pageSize: String, page: String, status: String? = nil, search: String? = nil, orderBy: OrderBy_getPagedClientGroupMembers? = nil, orderDirection: OrderDirection_getPagedClientGroupMembers? = nil) -> RequestBuilder<Void> {
+        var path = "/team/{teamId}/members"
+        path = path.stringByReplacingOccurrencesOfString("{teamId}", withString: "\(teamId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "pageSize": pageSize,
+            "page": page,
+            "status": status,
+            "search": search,
+            "orderBy": orderBy?.rawValue,
+            "orderDirection": orderDirection?.rawValue
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
      List Subteams
      
      - parameter teamId: (path) The team id 
@@ -478,6 +615,98 @@ public class TeamsAPI: APIBase {
         let requestBuilder: RequestBuilder<[TeamPublicRepresentation]>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     Get aggregate stats for campaigns
+     
+     - parameter clientGroupId: (path) ID of the client group association 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getTeamPromptAggregateStats(clientGroupId clientGroupId: String, completion: ((error: ErrorType?) -> Void)) {
+        getTeamPromptAggregateStatsWithRequestBuilder(clientGroupId: clientGroupId).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get aggregate stats for campaigns
+     - GET /team/{clientGroupId}/campaign/stats
+     - Get all the campaigns aggregate stats
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter clientGroupId: (path) ID of the client group association 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getTeamPromptAggregateStatsWithRequestBuilder(clientGroupId clientGroupId: String) -> RequestBuilder<Void> {
+        var path = "/team/{clientGroupId}/campaign/stats"
+        path = path.stringByReplacingOccurrencesOfString("{clientGroupId}", withString: "\(clientGroupId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     Get campaigns for team
+     
+     - parameter clientGroupId: (path) ID of the client group association 
+     - parameter searchTerm: (query) The value to search for in prompt subject (optional)
+     - parameter orderBy: (query) How to sort the column (optional)
+     - parameter asc: (query) Ascending or not (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getTeamPromptCampaigns(clientGroupId clientGroupId: String, searchTerm: String? = nil, orderBy: String? = nil, asc: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        getTeamPromptCampaignsWithRequestBuilder(clientGroupId: clientGroupId, searchTerm: searchTerm, orderBy: orderBy, asc: asc).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get campaigns for team
+     - GET /team/{clientGroupId}/campaign
+     - Get campaigns for the team and their stats
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter clientGroupId: (path) ID of the client group association 
+     - parameter searchTerm: (query) The value to search for in prompt subject (optional)
+     - parameter orderBy: (query) How to sort the column (optional)
+     - parameter asc: (query) Ascending or not (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getTeamPromptCampaignsWithRequestBuilder(clientGroupId clientGroupId: String, searchTerm: String? = nil, orderBy: String? = nil, asc: String? = nil) -> RequestBuilder<Void> {
+        var path = "/team/{clientGroupId}/campaign"
+        path = path.stringByReplacingOccurrencesOfString("{clientGroupId}", withString: "\(clientGroupId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "searchTerm": searchTerm,
+            "orderBy": orderBy,
+            "asc": asc
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
     /**
@@ -583,6 +812,55 @@ public class TeamsAPI: APIBase {
     }
 
     /**
+     Resend invite
+     
+     - parameter teamId: (path) The team id 
+     - parameter memberUserId: (path) The user id of the member being resent an invitation. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func resendTeamMemberInvitation(teamId teamId: String, memberUserId: String, completion: ((data: TeamPublicRepresentation?, error: ErrorType?) -> Void)) {
+        resendTeamMemberInvitationWithRequestBuilder(teamId: teamId, memberUserId: memberUserId).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     Resend invite
+     - POST /team/{teamId}/{memberUserId}/rewelcome
+     - Resend invitation to a member of a team
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     - examples: [{example={
+  "id" : "aeiou",
+  "name" : "aeiou",
+  "createdDate" : "aeiou"
+}, contentType=application/json}]
+     
+     - parameter teamId: (path) The team id 
+     - parameter memberUserId: (path) The user id of the member being resent an invitation. 
+
+     - returns: RequestBuilder<TeamPublicRepresentation> 
+     */
+    public class func resendTeamMemberInvitationWithRequestBuilder(teamId teamId: String, memberUserId: String) -> RequestBuilder<TeamPublicRepresentation> {
+        var path = "/team/{teamId}/{memberUserId}/rewelcome"
+        path = path.stringByReplacingOccurrencesOfString("{teamId}", withString: "\(teamId)", options: .LiteralSearch, range: nil)
+        path = path.stringByReplacingOccurrencesOfString("{memberUserId}", withString: "\(memberUserId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<TeamPublicRepresentation>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
      Updates the Jericho Prompt Settings
      
      - parameter teamId: (path) The team id 
@@ -631,10 +909,11 @@ public class TeamsAPI: APIBase {
      
      - parameter teamId: (path) The team id 
      - parameter name: (form) The name of the team (optional)
+     - parameter state: (form) The status of the login permissions (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func updateTeam(teamId teamId: String, name: String? = nil, completion: ((data: TeamPublicRepresentation?, error: ErrorType?) -> Void)) {
-        updateTeamWithRequestBuilder(teamId: teamId, name: name).execute { (response, error) -> Void in
+    public class func updateTeam(teamId teamId: String, name: String? = nil, state: String? = nil, completion: ((data: TeamPublicRepresentation?, error: ErrorType?) -> Void)) {
+        updateTeamWithRequestBuilder(teamId: teamId, name: name, state: state).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
     }
@@ -655,16 +934,18 @@ public class TeamsAPI: APIBase {
      
      - parameter teamId: (path) The team id 
      - parameter name: (form) The name of the team (optional)
+     - parameter state: (form) The status of the login permissions (optional)
 
      - returns: RequestBuilder<TeamPublicRepresentation> 
      */
-    public class func updateTeamWithRequestBuilder(teamId teamId: String, name: String? = nil) -> RequestBuilder<TeamPublicRepresentation> {
+    public class func updateTeamWithRequestBuilder(teamId teamId: String, name: String? = nil, state: String? = nil) -> RequestBuilder<TeamPublicRepresentation> {
         var path = "/team/{teamId}"
         path = path.stringByReplacingOccurrencesOfString("{teamId}", withString: "\(teamId)", options: .LiteralSearch, range: nil)
         let URLString = bombbomb-swift-openapiAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [
-            "name": name
+            "name": name,
+            "state": state
         ]
  
         let parameters = APIHelper.rejectNil(nillableParameters)

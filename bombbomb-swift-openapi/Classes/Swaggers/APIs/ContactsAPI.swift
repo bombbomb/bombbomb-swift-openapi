@@ -11,6 +11,228 @@ import Alamofire
 
 public class ContactsAPI: APIBase {
     /**
+     Add contacts from a CSV file.
+     
+     - parameter mappingData: (form) The info sent for the contacts 
+     - parameter listData: (form) The info sent with the import for the list 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func addContactsCSV(mappingData mappingData: String, listData: String, completion: ((error: ErrorType?) -> Void)) {
+        addContactsCSVWithRequestBuilder(mappingData: mappingData, listData: listData).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Add contacts from a CSV file.
+     - POST /contacts/import_csv
+     - Add multiple contacts through the upload importer from a CSV file.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter mappingData: (form) The info sent for the contacts 
+     - parameter listData: (form) The info sent with the import for the list 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func addContactsCSVWithRequestBuilder(mappingData mappingData: String, listData: String) -> RequestBuilder<Void> {
+        let path = "/contacts/import_csv"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "mappingData": mappingData,
+            "listData": listData
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Add a contact.
+     
+     - parameter contactEmail: (form) Email of the new contact we are adding 
+     - parameter contactInfo: (form) The info sent for this contact (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func addNewContact(contactEmail contactEmail: String, contactInfo: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        addNewContactWithRequestBuilder(contactEmail: contactEmail, contactInfo: contactInfo).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Add a contact.
+     - POST /contacts/
+     - Add a contact to the users list.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter contactEmail: (form) Email of the new contact we are adding 
+     - parameter contactInfo: (form) The info sent for this contact (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func addNewContactWithRequestBuilder(contactEmail contactEmail: String, contactInfo: String? = nil) -> RequestBuilder<Void> {
+        let path = "/contacts/"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "contactEmail": contactEmail,
+            "contactInfo": contactInfo
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Add custom fields.
+     
+     - parameter fieldName: (form) Custom field name to be added 
+     - parameter fieldType: (form) Custom field type for the field to be added (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func addNewCustomField(fieldName fieldName: String, fieldType: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        addNewCustomFieldWithRequestBuilder(fieldName: fieldName, fieldType: fieldType).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Add custom fields.
+     - POST /contacts/custom_fields/
+     - Add a new custom field.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter fieldName: (form) Custom field name to be added 
+     - parameter fieldType: (form) Custom field type for the field to be added (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func addNewCustomFieldWithRequestBuilder(fieldName fieldName: String, fieldType: String? = nil) -> RequestBuilder<Void> {
+        let path = "/contacts/custom_fields/"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "fieldName": fieldName,
+            "fieldType": fieldType
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Add pasted contacts.
+     
+     - parameter contactEmails: (form) Emails array of the new contacts we are adding 
+     - parameter listInfo: (form) Information about the lists id, recalculations on totals, consent etc (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func addPastedContacts(contactEmails contactEmails: String, listInfo: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        addPastedContactsWithRequestBuilder(contactEmails: contactEmails, listInfo: listInfo).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Add pasted contacts.
+     - POST /contacts/paste
+     - Add the pasted contacts to the users list.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter contactEmails: (form) Emails array of the new contacts we are adding 
+     - parameter listInfo: (form) Information about the lists id, recalculations on totals, consent etc (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func addPastedContactsWithRequestBuilder(contactEmails contactEmails: String, listInfo: String? = nil) -> RequestBuilder<Void> {
+        let path = "/contacts/paste"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "contactEmails": contactEmails,
+            "listInfo": listInfo
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Format CSV.
+     
+     - parameter file: (form) The CSV file being uploaded 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func cSVToObject(file file: String, completion: ((error: ErrorType?) -> Void)) {
+        cSVToObjectWithRequestBuilder(file: file).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Format CSV.
+     - POST /csv-to-object
+     - Format a CSV file to an object.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter file: (form) The CSV file being uploaded 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func cSVToObjectWithRequestBuilder(file file: String) -> RequestBuilder<Void> {
+        let path = "/csv-to-object"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "file": file
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
      Delete Contacts
      
      - parameter listId: (form) The list of contacts to be deleted. 
@@ -50,6 +272,84 @@ public class ContactsAPI: APIBase {
         let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "PUT", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Get Contact Details
+     
+     - parameter id: (path) Guid for the contact. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getContactById(id id: String, completion: ((error: ErrorType?) -> Void)) {
+        getContactByIdWithRequestBuilder(id: id).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get Contact Details
+     - GET /contact/{id}
+     - Get the contact details
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter id: (path) Guid for the contact. 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getContactByIdWithRequestBuilder(id id: String) -> RequestBuilder<Void> {
+        var path = "/contact/{id}"
+        path = path.stringByReplacingOccurrencesOfString("{id}", withString: "\(id)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     Get custom fields.
+     
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getCustomFields(completion: ((error: ErrorType?) -> Void)) {
+        getCustomFieldsWithRequestBuilder().execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get custom fields.
+     - GET /contacts/custom_fields/
+     - Get the current users custom fields.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getCustomFieldsWithRequestBuilder() -> RequestBuilder<Void> {
+        let path = "/contacts/custom_fields/"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
 
 }

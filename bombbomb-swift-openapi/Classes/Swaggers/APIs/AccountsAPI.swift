@@ -13,13 +13,10 @@ public class AccountsAPI: APIBase {
     /**
      Get account details.
      
-     - parameter email: (query) Your login email address (optional)
-     - parameter pw: (query) Your password (optional)
-     - parameter apiKey: (query) Your Api Key (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func accountDetails(email email: String? = nil, pw: String? = nil, apiKey: String? = nil, completion: ((error: ErrorType?) -> Void)) {
-        accountDetailsWithRequestBuilder(email: email, pw: pw, apiKey: apiKey).execute { (response, error) -> Void in
+    public class func accountDetails(completion: ((error: ErrorType?) -> Void)) {
+        accountDetailsWithRequestBuilder().execute { (response, error) -> Void in
             completion(error: error);
         }
     }
@@ -29,22 +26,14 @@ public class AccountsAPI: APIBase {
      Get account details.
      - GET /accounts
      - Get the details of the user's account.
-     
-     - parameter email: (query) Your login email address (optional)
-     - parameter pw: (query) Your password (optional)
-     - parameter apiKey: (query) Your Api Key (optional)
 
      - returns: RequestBuilder<Void> 
      */
-    public class func accountDetailsWithRequestBuilder(email email: String? = nil, pw: String? = nil, apiKey: String? = nil) -> RequestBuilder<Void> {
+    public class func accountDetailsWithRequestBuilder() -> RequestBuilder<Void> {
         let path = "/accounts"
         let URLString = bombbomb-swift-openapiAPI.basePath + path
 
-        let nillableParameters: [String:AnyObject?] = [
-            "email": email,
-            "pw": pw,
-            "api_key": apiKey
-        ]
+        let nillableParameters: [String:AnyObject?] = [:]
  
         let parameters = APIHelper.rejectNil(nillableParameters)
  
@@ -52,7 +41,7 @@ public class AccountsAPI: APIBase {
  
         let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
 
     /**
@@ -69,10 +58,11 @@ public class AccountsAPI: APIBase {
      - parameter address: (form) Street Address of the user. (optional)
      - parameter city: (form) City of the user. (optional)
      - parameter postalCode: (form) Postal/Zip code of the user. (optional)
+     - parameter preventWelcomeEmail: (form) prevent an email with login credentials from being sent to the new account. must be set to &#39;true&#39; (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func createAccount(teamId teamId: String, firstName: String, lastName: String, emailAddress: String, companyName: String, phone: String, country: String? = nil, industry: String? = nil, address: String? = nil, city: String? = nil, postalCode: String? = nil, completion: ((data: String?, error: ErrorType?) -> Void)) {
-        createAccountWithRequestBuilder(teamId: teamId, firstName: firstName, lastName: lastName, emailAddress: emailAddress, companyName: companyName, phone: phone, country: country, industry: industry, address: address, city: city, postalCode: postalCode).execute { (response, error) -> Void in
+    public class func createAccount(teamId teamId: String, firstName: String, lastName: String, emailAddress: String, companyName: String, phone: String, country: String? = nil, industry: String? = nil, address: String? = nil, city: String? = nil, postalCode: String? = nil, preventWelcomeEmail: String? = nil, completion: ((data: String?, error: ErrorType?) -> Void)) {
+        createAccountWithRequestBuilder(teamId: teamId, firstName: firstName, lastName: lastName, emailAddress: emailAddress, companyName: companyName, phone: phone, country: country, industry: industry, address: address, city: city, postalCode: postalCode, preventWelcomeEmail: preventWelcomeEmail).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
     }
@@ -98,10 +88,11 @@ public class AccountsAPI: APIBase {
      - parameter address: (form) Street Address of the user. (optional)
      - parameter city: (form) City of the user. (optional)
      - parameter postalCode: (form) Postal/Zip code of the user. (optional)
+     - parameter preventWelcomeEmail: (form) prevent an email with login credentials from being sent to the new account. must be set to &#39;true&#39; (optional)
 
      - returns: RequestBuilder<String> 
      */
-    public class func createAccountWithRequestBuilder(teamId teamId: String, firstName: String, lastName: String, emailAddress: String, companyName: String, phone: String, country: String? = nil, industry: String? = nil, address: String? = nil, city: String? = nil, postalCode: String? = nil) -> RequestBuilder<String> {
+    public class func createAccountWithRequestBuilder(teamId teamId: String, firstName: String, lastName: String, emailAddress: String, companyName: String, phone: String, country: String? = nil, industry: String? = nil, address: String? = nil, city: String? = nil, postalCode: String? = nil, preventWelcomeEmail: String? = nil) -> RequestBuilder<String> {
         let path = "/accounts"
         let URLString = bombbomb-swift-openapiAPI.basePath + path
 
@@ -116,7 +107,8 @@ public class AccountsAPI: APIBase {
             "industry": industry,
             "address": address,
             "city": city,
-            "postalCode": postalCode
+            "postalCode": postalCode,
+            "preventWelcomeEmail": preventWelcomeEmail
         ]
  
         let parameters = APIHelper.rejectNil(nillableParameters)
@@ -129,39 +121,36 @@ public class AccountsAPI: APIBase {
     }
 
     /**
-     Check if subscription purchase allowed.
+     Get Client Statistics
      
-     - parameter email: (query) Your login email address (optional)
-     - parameter pw: (query) Your password (optional)
-     - parameter apiKey: (query) Your Api Key (optional)
+     - parameter clientId: (query) Client ID of the account to retrieve. Defaults to yourself. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func subscriptionPurchaseAllowed(email email: String? = nil, pw: String? = nil, apiKey: String? = nil, completion: ((error: ErrorType?) -> Void)) {
-        subscriptionPurchaseAllowedWithRequestBuilder(email: email, pw: pw, apiKey: apiKey).execute { (response, error) -> Void in
+    public class func getClientStatistics(clientId clientId: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        getClientStatisticsWithRequestBuilder(clientId: clientId).execute { (response, error) -> Void in
             completion(error: error);
         }
     }
 
 
     /**
-     Check if subscription purchase allowed.
-     - GET /accounts/purchaseable
-     - Check whether the user can purchase a subscription.
+     Get Client Statistics
+     - GET /accounts/stats
+     - Gets general statics for a Client
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
      
-     - parameter email: (query) Your login email address (optional)
-     - parameter pw: (query) Your password (optional)
-     - parameter apiKey: (query) Your Api Key (optional)
+     - parameter clientId: (query) Client ID of the account to retrieve. Defaults to yourself. (optional)
 
      - returns: RequestBuilder<Void> 
      */
-    public class func subscriptionPurchaseAllowedWithRequestBuilder(email email: String? = nil, pw: String? = nil, apiKey: String? = nil) -> RequestBuilder<Void> {
-        let path = "/accounts/purchaseable"
+    public class func getClientStatisticsWithRequestBuilder(clientId clientId: String? = nil) -> RequestBuilder<Void> {
+        let path = "/accounts/stats"
         let URLString = bombbomb-swift-openapiAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [
-            "email": email,
-            "pw": pw,
-            "api_key": apiKey
+            "clientId": clientId
         ]
  
         let parameters = APIHelper.rejectNil(nillableParameters)
@@ -171,6 +160,40 @@ public class AccountsAPI: APIBase {
         let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Check if subscription purchase allowed.
+     
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func subscriptionPurchaseAllowed(completion: ((error: ErrorType?) -> Void)) {
+        subscriptionPurchaseAllowedWithRequestBuilder().execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Check if subscription purchase allowed.
+     - GET /accounts/purchaseable
+     - Check whether the user can purchase a subscription.
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func subscriptionPurchaseAllowedWithRequestBuilder() -> RequestBuilder<Void> {
+        let path = "/accounts/purchaseable"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
 
 }

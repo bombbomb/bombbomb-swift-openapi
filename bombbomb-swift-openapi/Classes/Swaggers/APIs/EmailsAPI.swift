@@ -65,6 +65,48 @@ public class EmailsAPI: APIBase {
     }
 
     /**
+     Get all user templates
+     
+     - parameter quickSendOnly: (query) Whether to return only quick send templates. (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getAllTemplatesForCurrentUser(quickSendOnly quickSendOnly: Bool? = nil, completion: ((error: ErrorType?) -> Void)) {
+        getAllTemplatesForCurrentUserWithRequestBuilder(quickSendOnly: quickSendOnly).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get all user templates
+     - GET /emails/templates
+     - Get all templates accessible to the current user
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter quickSendOnly: (query) Whether to return only quick send templates. (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getAllTemplatesForCurrentUserWithRequestBuilder(quickSendOnly quickSendOnly: Bool? = nil) -> RequestBuilder<Void> {
+        let path = "/emails/templates"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "quickSendOnly": quickSendOnly
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
      Get Email Tracking
      
      - parameter emailId: (path) ID of the email 
@@ -206,6 +248,109 @@ public class EmailsAPI: APIBase {
         let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Get all quicksend templates
+     
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getQuickSendTemplates(completion: ((error: ErrorType?) -> Void)) {
+        getQuickSendTemplatesWithRequestBuilder().execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get all quicksend templates
+     - GET /emails/quicksend/templates
+     - Get all quicksend templates accessible to the user.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getQuickSendTemplatesWithRequestBuilder() -> RequestBuilder<Void> {
+        let path = "/emails/quicksend/templates"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     Send a quicksend email
+     
+     - parameter videoId: (form) A guid id for the video. (optional)
+     - parameter emailAddresses: (form) A semi-colon separated list of email addresses to send to. (optional)
+     - parameter subject: (form) Subject line for the email. (optional)
+     - parameter message: (form) Message for the body of the email. (optional)
+     - parameter listIds: (form) An array of list ids (optional)
+     - parameter scheduledSendTimestamp: (form) When to schedule the send (seconds since epoch). null value means send immediately. (optional)
+     - parameter extendedProperties: (form) Bool value that when checked will send back both emailId as well as extra properties (optional)
+     - parameter templateId: (form) Id of a template to use for this send. A null value means use the default for this user. (optional)
+     - parameter stripHTML: (form) remove HTML elements (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func videoQuickSender(videoId videoId: String? = nil, emailAddresses: String? = nil, subject: String? = nil, message: String? = nil, listIds: String? = nil, scheduledSendTimestamp: Int32? = nil, extendedProperties: String? = nil, templateId: String? = nil, stripHTML: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        videoQuickSenderWithRequestBuilder(videoId: videoId, emailAddresses: emailAddresses, subject: subject, message: message, listIds: listIds, scheduledSendTimestamp: scheduledSendTimestamp, extendedProperties: extendedProperties, templateId: templateId, stripHTML: stripHTML).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Send a quicksend email
+     - POST /emails/quicksend
+     - Send a quicksend video email to the list or users provided.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter videoId: (form) A guid id for the video. (optional)
+     - parameter emailAddresses: (form) A semi-colon separated list of email addresses to send to. (optional)
+     - parameter subject: (form) Subject line for the email. (optional)
+     - parameter message: (form) Message for the body of the email. (optional)
+     - parameter listIds: (form) An array of list ids (optional)
+     - parameter scheduledSendTimestamp: (form) When to schedule the send (seconds since epoch). null value means send immediately. (optional)
+     - parameter extendedProperties: (form) Bool value that when checked will send back both emailId as well as extra properties (optional)
+     - parameter templateId: (form) Id of a template to use for this send. A null value means use the default for this user. (optional)
+     - parameter stripHTML: (form) remove HTML elements (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func videoQuickSenderWithRequestBuilder(videoId videoId: String? = nil, emailAddresses: String? = nil, subject: String? = nil, message: String? = nil, listIds: String? = nil, scheduledSendTimestamp: Int32? = nil, extendedProperties: String? = nil, templateId: String? = nil, stripHTML: String? = nil) -> RequestBuilder<Void> {
+        let path = "/emails/quicksend"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "videoId": videoId,
+            "emailAddresses": emailAddresses,
+            "subject": subject,
+            "message": message,
+            "listIds": listIds,
+            "scheduledSendTimestamp": scheduledSendTimestamp?.encodeToJSON(),
+            "extendedProperties": extendedProperties,
+            "templateId": templateId,
+            "stripHTML": stripHTML
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
 }

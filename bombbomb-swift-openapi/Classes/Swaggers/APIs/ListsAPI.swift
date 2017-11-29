@@ -11,6 +11,48 @@ import Alamofire
 
 public class ListsAPI: APIBase {
     /**
+     Add list.
+     
+     - parameter listName: (form) Name of the new list being added 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func addNewList(listName listName: String, completion: ((error: ErrorType?) -> Void)) {
+        addNewListWithRequestBuilder(listName: listName).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Add list.
+     - POST /lists/
+     - Add a list to the users account.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter listName: (form) Name of the new list being added 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func addNewListWithRequestBuilder(listName listName: String) -> RequestBuilder<Void> {
+        let path = "/lists/"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "listName": listName
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
      Clear Contacts from List
      
      - parameter listId: (path) The list to be cleared. 
@@ -94,6 +136,43 @@ public class ListsAPI: APIBase {
         let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Get all Lists
+     
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getAllLists(completion: ((error: ErrorType?) -> Void)) {
+        getAllListsWithRequestBuilder().execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get all Lists
+     - GET /lists/
+     - Get all the lists for a specific user.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getAllListsWithRequestBuilder() -> RequestBuilder<Void> {
+        let path = "/lists/"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
 
     /**

@@ -62,6 +62,18 @@ public class VideoEmailPrompt: JSONEncodable {
     public var createdDate: NSDate?
     /** When the user was last notified about a prompt email waiting for a video */
     public var lastNotified: NSDate?
+    /** The facebook message to be passed off to social sender */
+    public var facebookMessage: String?
+    /** The twitter message to be passed off to social sender */
+    public var twitterMessage: String?
+    /** The linkedin message to be passed off to social sender */
+    public var linkedinMessage: String?
+    /** The sendMechanism property */
+    public var sendMechanism: String?
+    /** this determines whether or not it has a social content. */
+    public var hasSocial: Bool?
+    /** The types of mechanisms this prompt can send. */
+    public var sendTypes: [String]?
 
     public init() {}
 
@@ -94,6 +106,12 @@ public class VideoEmailPrompt: JSONEncodable {
         nillableDictionary["applyTemplate"] = self.applyTemplate
         nillableDictionary["createdDate"] = self.createdDate?.encodeToJSON()
         nillableDictionary["lastNotified"] = self.lastNotified?.encodeToJSON()
+        nillableDictionary["facebookMessage"] = self.facebookMessage
+        nillableDictionary["twitterMessage"] = self.twitterMessage
+        nillableDictionary["linkedinMessage"] = self.linkedinMessage
+        nillableDictionary["sendMechanism"] = self.sendMechanism
+        nillableDictionary["hasSocial"] = self.hasSocial
+        nillableDictionary["sendTypes"] = self.sendTypes?.encodeToJSON()
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }

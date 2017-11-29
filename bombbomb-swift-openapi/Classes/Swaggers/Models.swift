@@ -210,6 +210,24 @@ class Decoders {
             }
 
 
+            // Decoder for [HostedDoc]
+            Decoders.addDecoder(clazz: [HostedDoc].self) { (source: AnyObject) -> [HostedDoc] in
+                return Decoders.decode(clazz: [HostedDoc].self, source: source)
+            }
+            // Decoder for HostedDoc
+            Decoders.addDecoder(clazz: HostedDoc.self) { (source: AnyObject) -> HostedDoc in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = HostedDoc()
+                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
+                instance.userId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["userId"])
+                instance.fileName = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["fileName"])
+                instance.shortUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["shortUrl"])
+                instance.longUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["longUrl"])
+                instance.uploadDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["uploadDate"])
+                return instance
+            }
+
+
             // Decoder for [InlineResponse200]
             Decoders.addDecoder(clazz: [InlineResponse200].self) { (source: AnyObject) -> [InlineResponse200] in
                 return Decoders.decode(clazz: [InlineResponse200].self, source: source)
@@ -428,6 +446,12 @@ class Decoders {
                 instance.applyTemplate = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["applyTemplate"])
                 instance.createdDate = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["createdDate"])
                 instance.lastNotified = Decoders.decodeOptional(clazz: NSDate.self, source: sourceDictionary["lastNotified"])
+                instance.facebookMessage = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["facebookMessage"])
+                instance.twitterMessage = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["twitterMessage"])
+                instance.linkedinMessage = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["linkedinMessage"])
+                instance.sendMechanism = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["sendMechanism"])
+                instance.hasSocial = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["hasSocial"])
+                instance.sendTypes = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["sendTypes"])
                 return instance
             }
 

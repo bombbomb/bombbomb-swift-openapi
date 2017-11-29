@@ -13,7 +13,6 @@ public class PromptsAPI: APIBase {
     /**
      Create a running Prompt Bot for a list
      
-     - parameter listId: (form) The list id to attach the bot to. 
      - parameter emailId: (form) The default email to use. 
      - parameter name: (form) The name of the bot. 
      - parameter subject: (form) The subject of the default email. 
@@ -21,12 +20,13 @@ public class PromptsAPI: APIBase {
      - parameter contactFieldValueColumn: (form) The custom field value column with dates for this bot. 
      - parameter botTypeId: (form) The type of bot to create. 
      - parameter templateId: (form) The template used to create the email id. 
+     - parameter listId: (form) The list id to attach the bot to. (optional)
      - parameter videoId: (form) The video used in the email. (optional)
      - parameter endDate: (form) The time frame to complete sending to the list. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func createPromptBot(listId listId: String, emailId: String, name: String, subject: String, content: String, contactFieldValueColumn: String, botTypeId: String, templateId: String, videoId: String? = nil, endDate: String? = nil, completion: ((data: PromptBot?, error: ErrorType?) -> Void)) {
-        createPromptBotWithRequestBuilder(listId: listId, emailId: emailId, name: name, subject: subject, content: content, contactFieldValueColumn: contactFieldValueColumn, botTypeId: botTypeId, templateId: templateId, videoId: videoId, endDate: endDate).execute { (response, error) -> Void in
+    public class func createPromptBot(emailId emailId: String, name: String, subject: String, content: String, contactFieldValueColumn: String, botTypeId: String, templateId: String, listId: String? = nil, videoId: String? = nil, endDate: String? = nil, completion: ((data: PromptBot?, error: ErrorType?) -> Void)) {
+        createPromptBotWithRequestBuilder(emailId: emailId, name: name, subject: subject, content: content, contactFieldValueColumn: contactFieldValueColumn, botTypeId: botTypeId, templateId: templateId, listId: listId, videoId: videoId, endDate: endDate).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
     }
@@ -57,7 +57,6 @@ public class PromptsAPI: APIBase {
   "contactFieldValueColumn" : "aeiou"
 }, contentType=application/json}]
      
-     - parameter listId: (form) The list id to attach the bot to. 
      - parameter emailId: (form) The default email to use. 
      - parameter name: (form) The name of the bot. 
      - parameter subject: (form) The subject of the default email. 
@@ -65,12 +64,13 @@ public class PromptsAPI: APIBase {
      - parameter contactFieldValueColumn: (form) The custom field value column with dates for this bot. 
      - parameter botTypeId: (form) The type of bot to create. 
      - parameter templateId: (form) The template used to create the email id. 
+     - parameter listId: (form) The list id to attach the bot to. (optional)
      - parameter videoId: (form) The video used in the email. (optional)
      - parameter endDate: (form) The time frame to complete sending to the list. (optional)
 
      - returns: RequestBuilder<PromptBot> 
      */
-    public class func createPromptBotWithRequestBuilder(listId listId: String, emailId: String, name: String, subject: String, content: String, contactFieldValueColumn: String, botTypeId: String, templateId: String, videoId: String? = nil, endDate: String? = nil) -> RequestBuilder<PromptBot> {
+    public class func createPromptBotWithRequestBuilder(emailId emailId: String, name: String, subject: String, content: String, contactFieldValueColumn: String, botTypeId: String, templateId: String, listId: String? = nil, videoId: String? = nil, endDate: String? = nil) -> RequestBuilder<PromptBot> {
         let path = "/prompts/bots"
         let URLString = bombbomb-swift-openapiAPI.basePath + path
 
@@ -117,32 +117,38 @@ public class PromptsAPI: APIBase {
        - type: oauth2
        - name: BBOAuth2
      - examples: [{example={
-  "clientGroupId" : "aeiou",
   "promptBotId" : "aeiou",
-  "exampleVideoId" : "aeiou",
+  "twitterMessage" : "aeiou",
   "jobId" : "aeiou",
+  "promptIntro" : "aeiou",
+  "sendTypes" : [ "aeiou" ],
+  "id" : "aeiou",
+  "emailId" : "aeiou",
+  "promptHtml" : "aeiou",
+  "emailSubjectLine" : "aeiou",
+  "thumbnailUrl" : "aeiou",
+  "userId" : "aeiou",
+  "videoId" : "aeiou",
+  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
+  "facebookMessage" : "aeiou",
+  "createdDate" : "2000-01-23T04:56:07.000+00:00",
+  "hasSocial" : true,
+  "exampleVideoId" : "aeiou",
+  "clientGroupId" : "aeiou",
   "sendWithoutVideo" : true,
   "status" : "",
-  "promptIntro" : "aeiou",
+  "linkedinMessage" : "aeiou",
   "applyTemplate" : true,
   "lastNotified" : "2000-01-23T04:56:07.000+00:00",
-  "id" : "aeiou",
   "templateId" : "aeiou",
   "jerichoId" : "aeiou",
-  "emailId" : "aeiou",
-  "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
   "contactId" : "aeiou",
-  "promptHtml" : "aeiou",
+  "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
   "followupVideoId" : "aeiou",
-  "emailSubjectLine" : "aeiou",
   "toLists" : [ "aeiou" ],
+  "sendMechanism" : "aeiou",
   "emailContent" : "aeiou",
-  "videoId" : "aeiou",
-  "userId" : "aeiou",
-  "thumbnailUrl" : "aeiou",
-  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
-  "promptSubject" : "aeiou",
-  "createdDate" : "2000-01-23T04:56:07.000+00:00"
+  "promptSubject" : "aeiou"
 }, contentType=application/json}]
      
      - parameter prompt: (body) The Video Email Prompt to be created 
@@ -181,32 +187,38 @@ public class PromptsAPI: APIBase {
        - type: oauth2
        - name: BBOAuth2
      - examples: [{example=[ {
-  "clientGroupId" : "aeiou",
   "promptBotId" : "aeiou",
-  "exampleVideoId" : "aeiou",
+  "twitterMessage" : "aeiou",
   "jobId" : "aeiou",
+  "promptIntro" : "aeiou",
+  "sendTypes" : [ "aeiou" ],
+  "id" : "aeiou",
+  "emailId" : "aeiou",
+  "promptHtml" : "aeiou",
+  "emailSubjectLine" : "aeiou",
+  "thumbnailUrl" : "aeiou",
+  "userId" : "aeiou",
+  "videoId" : "aeiou",
+  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
+  "facebookMessage" : "aeiou",
+  "createdDate" : "2000-01-23T04:56:07.000+00:00",
+  "hasSocial" : true,
+  "exampleVideoId" : "aeiou",
+  "clientGroupId" : "aeiou",
   "sendWithoutVideo" : true,
   "status" : "",
-  "promptIntro" : "aeiou",
+  "linkedinMessage" : "aeiou",
   "applyTemplate" : true,
   "lastNotified" : "2000-01-23T04:56:07.000+00:00",
-  "id" : "aeiou",
   "templateId" : "aeiou",
   "jerichoId" : "aeiou",
-  "emailId" : "aeiou",
-  "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
   "contactId" : "aeiou",
-  "promptHtml" : "aeiou",
+  "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
   "followupVideoId" : "aeiou",
-  "emailSubjectLine" : "aeiou",
   "toLists" : [ "aeiou" ],
+  "sendMechanism" : "aeiou",
   "emailContent" : "aeiou",
-  "videoId" : "aeiou",
-  "userId" : "aeiou",
-  "thumbnailUrl" : "aeiou",
-  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
-  "promptSubject" : "aeiou",
-  "createdDate" : "2000-01-23T04:56:07.000+00:00"
+  "promptSubject" : "aeiou"
 } ], contentType=application/json}]
 
      - returns: RequestBuilder<[VideoEmailPrompt]> 
@@ -338,32 +350,38 @@ public class PromptsAPI: APIBase {
        - type: oauth2
        - name: BBOAuth2
      - examples: [{example={
-  "clientGroupId" : "aeiou",
   "promptBotId" : "aeiou",
-  "exampleVideoId" : "aeiou",
+  "twitterMessage" : "aeiou",
   "jobId" : "aeiou",
+  "promptIntro" : "aeiou",
+  "sendTypes" : [ "aeiou" ],
+  "id" : "aeiou",
+  "emailId" : "aeiou",
+  "promptHtml" : "aeiou",
+  "emailSubjectLine" : "aeiou",
+  "thumbnailUrl" : "aeiou",
+  "userId" : "aeiou",
+  "videoId" : "aeiou",
+  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
+  "facebookMessage" : "aeiou",
+  "createdDate" : "2000-01-23T04:56:07.000+00:00",
+  "hasSocial" : true,
+  "exampleVideoId" : "aeiou",
+  "clientGroupId" : "aeiou",
   "sendWithoutVideo" : true,
   "status" : "",
-  "promptIntro" : "aeiou",
+  "linkedinMessage" : "aeiou",
   "applyTemplate" : true,
   "lastNotified" : "2000-01-23T04:56:07.000+00:00",
-  "id" : "aeiou",
   "templateId" : "aeiou",
   "jerichoId" : "aeiou",
-  "emailId" : "aeiou",
-  "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
   "contactId" : "aeiou",
-  "promptHtml" : "aeiou",
+  "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
   "followupVideoId" : "aeiou",
-  "emailSubjectLine" : "aeiou",
   "toLists" : [ "aeiou" ],
+  "sendMechanism" : "aeiou",
   "emailContent" : "aeiou",
-  "videoId" : "aeiou",
-  "userId" : "aeiou",
-  "thumbnailUrl" : "aeiou",
-  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
-  "promptSubject" : "aeiou",
-  "createdDate" : "2000-01-23T04:56:07.000+00:00"
+  "promptSubject" : "aeiou"
 }, contentType=application/json}]
      
      - parameter id: (path) The Id of the prompt 
@@ -406,32 +424,38 @@ public class PromptsAPI: APIBase {
        - type: oauth2
        - name: BBOAuth2
      - examples: [{example=[ {
-  "clientGroupId" : "aeiou",
   "promptBotId" : "aeiou",
-  "exampleVideoId" : "aeiou",
+  "twitterMessage" : "aeiou",
   "jobId" : "aeiou",
+  "promptIntro" : "aeiou",
+  "sendTypes" : [ "aeiou" ],
+  "id" : "aeiou",
+  "emailId" : "aeiou",
+  "promptHtml" : "aeiou",
+  "emailSubjectLine" : "aeiou",
+  "thumbnailUrl" : "aeiou",
+  "userId" : "aeiou",
+  "videoId" : "aeiou",
+  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
+  "facebookMessage" : "aeiou",
+  "createdDate" : "2000-01-23T04:56:07.000+00:00",
+  "hasSocial" : true,
+  "exampleVideoId" : "aeiou",
+  "clientGroupId" : "aeiou",
   "sendWithoutVideo" : true,
   "status" : "",
-  "promptIntro" : "aeiou",
+  "linkedinMessage" : "aeiou",
   "applyTemplate" : true,
   "lastNotified" : "2000-01-23T04:56:07.000+00:00",
-  "id" : "aeiou",
   "templateId" : "aeiou",
   "jerichoId" : "aeiou",
-  "emailId" : "aeiou",
-  "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
   "contactId" : "aeiou",
-  "promptHtml" : "aeiou",
+  "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
   "followupVideoId" : "aeiou",
-  "emailSubjectLine" : "aeiou",
   "toLists" : [ "aeiou" ],
+  "sendMechanism" : "aeiou",
   "emailContent" : "aeiou",
-  "videoId" : "aeiou",
-  "userId" : "aeiou",
-  "thumbnailUrl" : "aeiou",
-  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
-  "promptSubject" : "aeiou",
-  "createdDate" : "2000-01-23T04:56:07.000+00:00"
+  "promptSubject" : "aeiou"
 } ], contentType=application/json}]
 
      - returns: RequestBuilder<[VideoEmailPrompt]> 
@@ -485,32 +509,38 @@ public class PromptsAPI: APIBase {
      - POST /prompt/{id}/response
      - Respond to a prompt by either adding a video, sending without a video or cancelling the prompt.
      - examples: [{example={
-  "clientGroupId" : "aeiou",
   "promptBotId" : "aeiou",
-  "exampleVideoId" : "aeiou",
+  "twitterMessage" : "aeiou",
   "jobId" : "aeiou",
+  "promptIntro" : "aeiou",
+  "sendTypes" : [ "aeiou" ],
+  "id" : "aeiou",
+  "emailId" : "aeiou",
+  "promptHtml" : "aeiou",
+  "emailSubjectLine" : "aeiou",
+  "thumbnailUrl" : "aeiou",
+  "userId" : "aeiou",
+  "videoId" : "aeiou",
+  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
+  "facebookMessage" : "aeiou",
+  "createdDate" : "2000-01-23T04:56:07.000+00:00",
+  "hasSocial" : true,
+  "exampleVideoId" : "aeiou",
+  "clientGroupId" : "aeiou",
   "sendWithoutVideo" : true,
   "status" : "",
-  "promptIntro" : "aeiou",
+  "linkedinMessage" : "aeiou",
   "applyTemplate" : true,
   "lastNotified" : "2000-01-23T04:56:07.000+00:00",
-  "id" : "aeiou",
   "templateId" : "aeiou",
   "jerichoId" : "aeiou",
-  "emailId" : "aeiou",
-  "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
   "contactId" : "aeiou",
-  "promptHtml" : "aeiou",
+  "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
   "followupVideoId" : "aeiou",
-  "emailSubjectLine" : "aeiou",
   "toLists" : [ "aeiou" ],
+  "sendMechanism" : "aeiou",
   "emailContent" : "aeiou",
-  "videoId" : "aeiou",
-  "userId" : "aeiou",
-  "thumbnailUrl" : "aeiou",
-  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
-  "promptSubject" : "aeiou",
-  "createdDate" : "2000-01-23T04:56:07.000+00:00"
+  "promptSubject" : "aeiou"
 }, contentType=application/json}]
      
      - parameter id: (path) The id of the prompt. 
@@ -543,23 +573,83 @@ public class PromptsAPI: APIBase {
     }
 
     /**
+     Update Prompt
+     
+     - parameter id: (path) The prompt&#39;s id 
+     - parameter sendMechanism: (form) The mechanism for the prompt to be sent (optional)
+     - parameter facebookMessage: (form) The facebook message assigned to the prompt (optional)
+     - parameter twitterMessage: (form) The twitter message assigned to the prompt (optional)
+     - parameter videoId: (form) The id of the video. (optional)
+     - parameter emailId: (form) The id of the email. (optional)
+     - parameter subject: (form) The subject of the email (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func updatePrompt(id id: String, sendMechanism: String? = nil, facebookMessage: String? = nil, twitterMessage: String? = nil, videoId: String? = nil, emailId: String? = nil, subject: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        updatePromptWithRequestBuilder(id: id, sendMechanism: sendMechanism, facebookMessage: facebookMessage, twitterMessage: twitterMessage, videoId: videoId, emailId: emailId, subject: subject).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Update Prompt
+     - PUT /prompts/{id}
+     - Updates a Prompt
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter id: (path) The prompt&#39;s id 
+     - parameter sendMechanism: (form) The mechanism for the prompt to be sent (optional)
+     - parameter facebookMessage: (form) The facebook message assigned to the prompt (optional)
+     - parameter twitterMessage: (form) The twitter message assigned to the prompt (optional)
+     - parameter videoId: (form) The id of the video. (optional)
+     - parameter emailId: (form) The id of the email. (optional)
+     - parameter subject: (form) The subject of the email (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func updatePromptWithRequestBuilder(id id: String, sendMechanism: String? = nil, facebookMessage: String? = nil, twitterMessage: String? = nil, videoId: String? = nil, emailId: String? = nil, subject: String? = nil) -> RequestBuilder<Void> {
+        var path = "/prompts/{id}"
+        path = path.stringByReplacingOccurrencesOfString("{id}", withString: "\(id)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "sendMechanism": sendMechanism,
+            "facebookMessage": facebookMessage,
+            "twitterMessage": twitterMessage,
+            "videoId": videoId,
+            "emailId": emailId,
+            "subject": subject
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
      Update Prompt Bot
      
      - parameter id: (path) The bot id. 
-     - parameter listId: (form) The list id to attach the bot to. 
      - parameter emailId: (form) The default email to use. 
      - parameter name: (form) The name of the bot. 
      - parameter subject: (form) The subject of the default email. 
      - parameter content: (form) The content used in the default email. 
      - parameter contactFieldValueColumn: (form) The custom field value column with dates for this bot. 
      - parameter templateId: (form) The template used to create the email id. 
+     - parameter listId: (form) The list id to attach the bot to. (optional)
      - parameter videoId: (form) The video used in the default email. (optional)
      - parameter endDate: (form) The time frame to complete sending to the list. (optional)
      - parameter status: (form) The status of the bot. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func updatePromptBot(id id: String, listId: String, emailId: String, name: String, subject: String, content: String, contactFieldValueColumn: String, templateId: String, videoId: String? = nil, endDate: String? = nil, status: String? = nil, completion: ((data: PromptBot?, error: ErrorType?) -> Void)) {
-        updatePromptBotWithRequestBuilder(id: id, listId: listId, emailId: emailId, name: name, subject: subject, content: content, contactFieldValueColumn: contactFieldValueColumn, templateId: templateId, videoId: videoId, endDate: endDate, status: status).execute { (response, error) -> Void in
+    public class func updatePromptBot(id id: String, emailId: String, name: String, subject: String, content: String, contactFieldValueColumn: String, templateId: String, listId: String? = nil, videoId: String? = nil, endDate: String? = nil, status: String? = nil, completion: ((data: PromptBot?, error: ErrorType?) -> Void)) {
+        updatePromptBotWithRequestBuilder(id: id, emailId: emailId, name: name, subject: subject, content: content, contactFieldValueColumn: contactFieldValueColumn, templateId: templateId, listId: listId, videoId: videoId, endDate: endDate, status: status).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
     }
@@ -591,20 +681,20 @@ public class PromptsAPI: APIBase {
 }, contentType=application/json}]
      
      - parameter id: (path) The bot id. 
-     - parameter listId: (form) The list id to attach the bot to. 
      - parameter emailId: (form) The default email to use. 
      - parameter name: (form) The name of the bot. 
      - parameter subject: (form) The subject of the default email. 
      - parameter content: (form) The content used in the default email. 
      - parameter contactFieldValueColumn: (form) The custom field value column with dates for this bot. 
      - parameter templateId: (form) The template used to create the email id. 
+     - parameter listId: (form) The list id to attach the bot to. (optional)
      - parameter videoId: (form) The video used in the default email. (optional)
      - parameter endDate: (form) The time frame to complete sending to the list. (optional)
      - parameter status: (form) The status of the bot. (optional)
 
      - returns: RequestBuilder<PromptBot> 
      */
-    public class func updatePromptBotWithRequestBuilder(id id: String, listId: String, emailId: String, name: String, subject: String, content: String, contactFieldValueColumn: String, templateId: String, videoId: String? = nil, endDate: String? = nil, status: String? = nil) -> RequestBuilder<PromptBot> {
+    public class func updatePromptBotWithRequestBuilder(id id: String, emailId: String, name: String, subject: String, content: String, contactFieldValueColumn: String, templateId: String, listId: String? = nil, videoId: String? = nil, endDate: String? = nil, status: String? = nil) -> RequestBuilder<PromptBot> {
         var path = "/prompts/bots/{id}"
         path = path.stringByReplacingOccurrencesOfString("{id}", withString: "\(id)", options: .LiteralSearch, range: nil)
         let URLString = bombbomb-swift-openapiAPI.basePath + path
@@ -638,11 +728,11 @@ public class PromptsAPI: APIBase {
      - parameter brandedTemplateId: (form) The template to use for branded feel emails. (optional)
      - parameter personalTemplateId: (form) The template to use for personal feel emails. (optional)
      - parameter enabled: (form) Set whether the user is able to start receiving prompts. (optional)
-     - parameter autoShares: (form) These are what we are autosharing to (optional)
+     - parameter sendMechanism: (form) The way to send the prompt (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func updatePromptCampaign(clientGroupId clientGroupId: String, brandedTemplateId: String? = nil, personalTemplateId: String? = nil, enabled: Bool? = nil, autoShares: String? = nil, completion: ((error: ErrorType?) -> Void)) {
-        updatePromptCampaignWithRequestBuilder(clientGroupId: clientGroupId, brandedTemplateId: brandedTemplateId, personalTemplateId: personalTemplateId, enabled: enabled, autoShares: autoShares).execute { (response, error) -> Void in
+    public class func updatePromptCampaign(clientGroupId clientGroupId: String, brandedTemplateId: String? = nil, personalTemplateId: String? = nil, enabled: Bool? = nil, sendMechanism: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        updatePromptCampaignWithRequestBuilder(clientGroupId: clientGroupId, brandedTemplateId: brandedTemplateId, personalTemplateId: personalTemplateId, enabled: enabled, sendMechanism: sendMechanism).execute { (response, error) -> Void in
             completion(error: error);
         }
     }
@@ -660,11 +750,11 @@ public class PromptsAPI: APIBase {
      - parameter brandedTemplateId: (form) The template to use for branded feel emails. (optional)
      - parameter personalTemplateId: (form) The template to use for personal feel emails. (optional)
      - parameter enabled: (form) Set whether the user is able to start receiving prompts. (optional)
-     - parameter autoShares: (form) These are what we are autosharing to (optional)
+     - parameter sendMechanism: (form) The way to send the prompt (optional)
 
      - returns: RequestBuilder<Void> 
      */
-    public class func updatePromptCampaignWithRequestBuilder(clientGroupId clientGroupId: String, brandedTemplateId: String? = nil, personalTemplateId: String? = nil, enabled: Bool? = nil, autoShares: String? = nil) -> RequestBuilder<Void> {
+    public class func updatePromptCampaignWithRequestBuilder(clientGroupId clientGroupId: String, brandedTemplateId: String? = nil, personalTemplateId: String? = nil, enabled: Bool? = nil, sendMechanism: String? = nil) -> RequestBuilder<Void> {
         let path = "/prompts/campaigns/{id}"
         let URLString = bombbomb-swift-openapiAPI.basePath + path
 
@@ -673,7 +763,7 @@ public class PromptsAPI: APIBase {
             "brandedTemplateId": brandedTemplateId,
             "personalTemplateId": personalTemplateId,
             "enabled": enabled,
-            "autoShares": autoShares
+            "sendMechanism": sendMechanism
         ]
  
         let parameters = APIHelper.rejectNil(nillableParameters)

@@ -209,4 +209,52 @@ public class VideosAPI: APIBase {
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
+    /**
+     Upload thumbnail
+     
+     - parameter videoId: (form) The id of the video 
+     - parameter thumbnail: (form) The thumbnail being uploaded 
+     - parameter custom: (form) The default email to use. (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func updateVideoThumbnailV2(videoId videoId: String, thumbnail: String, custom: Bool? = nil, completion: ((error: ErrorType?) -> Void)) {
+        updateVideoThumbnailV2WithRequestBuilder(videoId: videoId, thumbnail: thumbnail, custom: custom).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Upload thumbnail
+     - PUT /videos/thumbnail
+     - Upload a new video thumbnail
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter videoId: (form) The id of the video 
+     - parameter thumbnail: (form) The thumbnail being uploaded 
+     - parameter custom: (form) The default email to use. (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func updateVideoThumbnailV2WithRequestBuilder(videoId videoId: String, thumbnail: String, custom: Bool? = nil) -> RequestBuilder<Void> {
+        let path = "/videos/thumbnail"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "videoId": videoId,
+            "custom": custom,
+            "thumbnail": thumbnail
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
 }
