@@ -26,6 +26,9 @@ public class AccountsAPI: APIBase {
      Get account details.
      - GET /accounts
      - Get the details of the user's account.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
 
      - returns: RequestBuilder<Void> 
      */
@@ -61,7 +64,7 @@ public class AccountsAPI: APIBase {
      - parameter preventWelcomeEmail: (form) prevent an email with login credentials from being sent to the new account. must be set to &#39;true&#39; (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func createAccount(teamId teamId: String, firstName: String, lastName: String, emailAddress: String, companyName: String, phone: String, country: String? = nil, industry: String? = nil, address: String? = nil, city: String? = nil, postalCode: String? = nil, preventWelcomeEmail: String? = nil, completion: ((data: String?, error: ErrorType?) -> Void)) {
+    public class func createAccount(teamId teamId: String, firstName: String, lastName: String, emailAddress: String, companyName: String, phone: String, country: String? = nil, industry: String? = nil, address: String? = nil, city: String? = nil, postalCode: String? = nil, preventWelcomeEmail: Bool? = nil, completion: ((data: String?, error: ErrorType?) -> Void)) {
         createAccountWithRequestBuilder(teamId: teamId, firstName: firstName, lastName: lastName, emailAddress: emailAddress, companyName: companyName, phone: phone, country: country, industry: industry, address: address, city: city, postalCode: postalCode, preventWelcomeEmail: preventWelcomeEmail).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
@@ -92,7 +95,7 @@ public class AccountsAPI: APIBase {
 
      - returns: RequestBuilder<String> 
      */
-    public class func createAccountWithRequestBuilder(teamId teamId: String, firstName: String, lastName: String, emailAddress: String, companyName: String, phone: String, country: String? = nil, industry: String? = nil, address: String? = nil, city: String? = nil, postalCode: String? = nil, preventWelcomeEmail: String? = nil) -> RequestBuilder<String> {
+    public class func createAccountWithRequestBuilder(teamId teamId: String, firstName: String, lastName: String, emailAddress: String, companyName: String, phone: String, country: String? = nil, industry: String? = nil, address: String? = nil, city: String? = nil, postalCode: String? = nil, preventWelcomeEmail: Bool? = nil) -> RequestBuilder<String> {
         let path = "/accounts"
         let URLString = bombbomb-swift-openapiAPI.basePath + path
 
@@ -124,10 +127,12 @@ public class AccountsAPI: APIBase {
      Get Client Statistics
      
      - parameter clientId: (query) Client ID of the account to retrieve. Defaults to yourself. (optional)
+     - parameter refresh: (query) Boolean for whether data returned should be from cache or not. (optional)
+     - parameter statisticValues: (query) Array of data that should be returned, used exclusively for cacheless data (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func getClientStatistics(clientId clientId: String? = nil, completion: ((error: ErrorType?) -> Void)) {
-        getClientStatisticsWithRequestBuilder(clientId: clientId).execute { (response, error) -> Void in
+    public class func getClientStatistics(clientId clientId: String? = nil, refresh: Bool? = nil, statisticValues: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        getClientStatisticsWithRequestBuilder(clientId: clientId, refresh: refresh, statisticValues: statisticValues).execute { (response, error) -> Void in
             completion(error: error);
         }
     }
@@ -142,15 +147,19 @@ public class AccountsAPI: APIBase {
        - name: BBOAuth2
      
      - parameter clientId: (query) Client ID of the account to retrieve. Defaults to yourself. (optional)
+     - parameter refresh: (query) Boolean for whether data returned should be from cache or not. (optional)
+     - parameter statisticValues: (query) Array of data that should be returned, used exclusively for cacheless data (optional)
 
      - returns: RequestBuilder<Void> 
      */
-    public class func getClientStatisticsWithRequestBuilder(clientId clientId: String? = nil) -> RequestBuilder<Void> {
+    public class func getClientStatisticsWithRequestBuilder(clientId clientId: String? = nil, refresh: Bool? = nil, statisticValues: String? = nil) -> RequestBuilder<Void> {
         let path = "/accounts/stats"
         let URLString = bombbomb-swift-openapiAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [
-            "clientId": clientId
+            "clientId": clientId,
+            "refresh": refresh,
+            "statisticValues": statisticValues
         ]
  
         let parameters = APIHelper.rejectNil(nillableParameters)
@@ -160,6 +169,80 @@ public class AccountsAPI: APIBase {
         let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Gets user country
+     
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getUserCountry(completion: ((error: ErrorType?) -> Void)) {
+        getUserCountryWithRequestBuilder().execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Gets user country
+     - GET /accounts/{clientId}/country
+     - Gets the users country
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getUserCountryWithRequestBuilder() -> RequestBuilder<Void> {
+        let path = "/accounts/{clientId}/country"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     Reset API key
+     
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func resetApiKey(completion: ((error: ErrorType?) -> Void)) {
+        resetApiKeyWithRequestBuilder().execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Reset API key
+     - PUT /accounts/apikey
+     - Resets the current user's API key and returns the new key
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func resetApiKeyWithRequestBuilder() -> RequestBuilder<Void> {
+        let path = "/accounts/apikey"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
 
     /**
@@ -178,6 +261,9 @@ public class AccountsAPI: APIBase {
      Check if subscription purchase allowed.
      - GET /accounts/purchaseable
      - Check whether the user can purchase a subscription.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
 
      - returns: RequestBuilder<Void> 
      */
@@ -194,6 +280,48 @@ public class AccountsAPI: APIBase {
         let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     Add profile information.
+     
+     - parameter profileData: (form) Profile field information for the account (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func updateProfileData(profileData profileData: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        updateProfileDataWithRequestBuilder(profileData: profileData).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Add profile information.
+     - POST /account/profile/
+     - Add profile information to this users account
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter profileData: (form) Profile field information for the account (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func updateProfileDataWithRequestBuilder(profileData profileData: String? = nil) -> RequestBuilder<Void> {
+        let path = "/account/profile/"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "profileData": profileData
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
 }

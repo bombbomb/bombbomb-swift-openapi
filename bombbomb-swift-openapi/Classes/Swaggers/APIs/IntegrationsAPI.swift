@@ -11,6 +11,191 @@ import Alamofire
 
 public class IntegrationsAPI: APIBase {
     /**
+     Activate an integration for a user.
+     
+     - parameter code: (form) The identifier of the integration. 
+     - parameter key: (form) The key value. (optional)
+     - parameter secret: (form) The secret value. (optional)
+     - parameter token: (form) The token value. (optional)
+     - parameter data: (form) The data value as JSON. (optional)
+     - parameter overwrite: (form) Boolean value to know whether or not to delete the integration if it already exists (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func connectIntegration(code code: String, key: String? = nil, secret: String? = nil, token: String? = nil, data: String? = nil, overwrite: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        connectIntegrationWithRequestBuilder(code: code, key: key, secret: secret, token: token, data: data, overwrite: overwrite).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Activate an integration for a user.
+     - POST /integrations
+     - Provide the correct parameters to enable an integration. Required Parameters vary based on the desired          integration. Integrations requiring OAuth will provide the OAuth link that the user must be presented.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter code: (form) The identifier of the integration. 
+     - parameter key: (form) The key value. (optional)
+     - parameter secret: (form) The secret value. (optional)
+     - parameter token: (form) The token value. (optional)
+     - parameter data: (form) The data value as JSON. (optional)
+     - parameter overwrite: (form) Boolean value to know whether or not to delete the integration if it already exists (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func connectIntegrationWithRequestBuilder(code code: String, key: String? = nil, secret: String? = nil, token: String? = nil, data: String? = nil, overwrite: String? = nil) -> RequestBuilder<Void> {
+        let path = "/integrations"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "code": code,
+            "key": key,
+            "secret": secret,
+            "token": token,
+            "data": data,
+            "overwrite": overwrite
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Remove an integration for a user.
+     
+     - parameter id: (form) Integration ID (optional)
+     - parameter code: (form) Integration Code (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func deleteIntegration(id id: String? = nil, code: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        deleteIntegrationWithRequestBuilder(id: id, code: code).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Remove an integration for a user.
+     - DELETE /integrations
+     - Remove an integration by providing the integration id or integration code. Only provide one of the             parameters.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter id: (form) Integration ID (optional)
+     - parameter code: (form) Integration Code (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func deleteIntegrationWithRequestBuilder(id id: String? = nil, code: String? = nil) -> RequestBuilder<Void> {
+        let path = "/integrations"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "id": id,
+            "code": code
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Get health for a given integration
+     
+     - parameter code: (path) The integration code for which to retrieve the information from 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getIntegrationHealth(code code: String, completion: ((error: ErrorType?) -> Void)) {
+        getIntegrationHealthWithRequestBuilder(code: code).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get health for a given integration
+     - GET /integrations/health/{code}
+     - Get health for an integration.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter code: (path) The integration code for which to retrieve the information from 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getIntegrationHealthWithRequestBuilder(code code: String) -> RequestBuilder<Void> {
+        var path = "/integrations/health/{code}"
+        path = path.stringByReplacingOccurrencesOfString("{code}", withString: "\(code)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     Get page components for a given integration
+     
+     - parameter integrationName: (query) The integration for which to retrieve HTML page components. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getIntegrationPageComponents(integrationName integrationName: String, completion: ((error: ErrorType?) -> Void)) {
+        getIntegrationPageComponentsWithRequestBuilder(integrationName: integrationName).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get page components for a given integration
+     - GET /integrations/pageComponents
+     - Get all page components for an integration.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter integrationName: (query) The integration for which to retrieve HTML page components. 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getIntegrationPageComponentsWithRequestBuilder(integrationName integrationName: String) -> RequestBuilder<Void> {
+        let path = "/integrations/pageComponents"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "integration_name": integrationName
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
      Synchronize your integration list or lists.
      
      - parameter integrationId: (query) The integration to sync lists for. All integrations will sync if nothing is provided. (optional)

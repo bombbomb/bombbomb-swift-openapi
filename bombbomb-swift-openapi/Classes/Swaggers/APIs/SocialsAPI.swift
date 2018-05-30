@@ -51,10 +51,11 @@ public class SocialsAPI: APIBase {
      Gets the social email properties
      
      - parameter emailId: (query) This is the email Id for the email url 
+     - parameter socialContentId: (query) This is the social content Id 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func getSocialArticleProperties(emailId emailId: String, completion: ((error: ErrorType?) -> Void)) {
-        getSocialArticlePropertiesWithRequestBuilder(emailId: emailId).execute { (response, error) -> Void in
+    public class func getSocialArticleProperties(emailId emailId: String, socialContentId: String, completion: ((error: ErrorType?) -> Void)) {
+        getSocialArticlePropertiesWithRequestBuilder(emailId: emailId, socialContentId: socialContentId).execute { (response, error) -> Void in
             completion(error: error);
         }
     }
@@ -69,15 +70,17 @@ public class SocialsAPI: APIBase {
        - name: BBOAuth2
      
      - parameter emailId: (query) This is the email Id for the email url 
+     - parameter socialContentId: (query) This is the social content Id 
 
      - returns: RequestBuilder<Void> 
      */
-    public class func getSocialArticlePropertiesWithRequestBuilder(emailId emailId: String) -> RequestBuilder<Void> {
+    public class func getSocialArticlePropertiesWithRequestBuilder(emailId emailId: String, socialContentId: String) -> RequestBuilder<Void> {
         let path = "/socials/properties"
         let URLString = bombbomb-swift-openapiAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [
-            "emailId": emailId
+            "emailId": emailId,
+            "socialContentId": socialContentId
         ]
  
         let parameters = APIHelper.rejectNil(nillableParameters)
@@ -257,6 +260,93 @@ public class SocialsAPI: APIBase {
     }
 
     /**
+     Sends social content
+     
+     - parameter promptId: (form) The prompt id 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func retrySocialSend(promptId promptId: String, completion: ((error: ErrorType?) -> Void)) {
+        retrySocialSendWithRequestBuilder(promptId: promptId).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Sends social content
+     - POST /socials/send/retry
+     - Sends social content that failed for a user via their associated prompt
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter promptId: (form) The prompt id 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func retrySocialSendWithRequestBuilder(promptId promptId: String) -> RequestBuilder<Void> {
+        let path = "/socials/send/retry"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "promptId": promptId
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Sends social content
+     
+     - parameter promptId: (form) The prompt id 
+     - parameter socialType: (form) The destination for social content 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func sendSocial(promptId promptId: String, socialType: String, completion: ((error: ErrorType?) -> Void)) {
+        sendSocialWithRequestBuilder(promptId: promptId, socialType: socialType).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Sends social content
+     - POST /socials/send
+     - Sends social content for a user via their associated prompt
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter promptId: (form) The prompt id 
+     - parameter socialType: (form) The destination for social content 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func sendSocialWithRequestBuilder(promptId promptId: String, socialType: String) -> RequestBuilder<Void> {
+        let path = "/socials/send"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "promptId": promptId,
+            "socialType": socialType
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
      Gets the auto shares from the client group assoc id
      
      - parameter sendMechanism: (form) The send mechanism for the prompt 
@@ -292,6 +382,51 @@ public class SocialsAPI: APIBase {
         let nillableParameters: [String:AnyObject?] = [
             "sendMechanism": sendMechanism,
             "clientGroupId": clientGroupId,
+            "enabled": enabled
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Toggles the prompt campaigns in a users account
+     
+     - parameter sendMechanism: (form) The send mechanism for the prompt 
+     - parameter enabled: (form) Is the send mechanism enabled? 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func updateClientGroupsSendMechanism(sendMechanism sendMechanism: String, enabled: String, completion: ((error: ErrorType?) -> Void)) {
+        updateClientGroupsSendMechanismWithRequestBuilder(sendMechanism: sendMechanism, enabled: enabled).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Toggles the prompt campaigns in a users account
+     - PUT /socials/client/sendMechanisms
+     - Toggles the prompt campaigns in a users account for a social integrations on or off
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter sendMechanism: (form) The send mechanism for the prompt 
+     - parameter enabled: (form) Is the send mechanism enabled? 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func updateClientGroupsSendMechanismWithRequestBuilder(sendMechanism sendMechanism: String, enabled: String) -> RequestBuilder<Void> {
+        let path = "/socials/client/sendMechanisms"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "sendMechanism": sendMechanism,
             "enabled": enabled
         ]
  

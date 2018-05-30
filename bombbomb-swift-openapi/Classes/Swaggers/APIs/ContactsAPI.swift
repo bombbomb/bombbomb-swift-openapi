@@ -235,11 +235,12 @@ public class ContactsAPI: APIBase {
     /**
      Delete Contacts
      
-     - parameter listId: (form) The list of contacts to be deleted. 
+     - parameter listId: (form) The list of contacts to be deleted. (optional)
+     - parameter contactIds: (form) comma separated list of contact ids to delete (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func deleteContacts(listId listId: String, completion: ((error: ErrorType?) -> Void)) {
-        deleteContactsWithRequestBuilder(listId: listId).execute { (response, error) -> Void in
+    public class func deleteContacts(listId listId: String? = nil, contactIds: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        deleteContactsWithRequestBuilder(listId: listId, contactIds: contactIds).execute { (response, error) -> Void in
             completion(error: error);
         }
     }
@@ -248,21 +249,23 @@ public class ContactsAPI: APIBase {
     /**
      Delete Contacts
      - PUT /contacts/delete
-     - Delete contacts
+     - Delete all contacts within a list, or provide a comma separated list of contactIds to delete.
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
      
-     - parameter listId: (form) The list of contacts to be deleted. 
+     - parameter listId: (form) The list of contacts to be deleted. (optional)
+     - parameter contactIds: (form) comma separated list of contact ids to delete (optional)
 
      - returns: RequestBuilder<Void> 
      */
-    public class func deleteContactsWithRequestBuilder(listId listId: String) -> RequestBuilder<Void> {
+    public class func deleteContactsWithRequestBuilder(listId listId: String? = nil, contactIds: String? = nil) -> RequestBuilder<Void> {
         let path = "/contacts/delete"
         let URLString = bombbomb-swift-openapiAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [
-            "listId": listId
+            "listId": listId,
+            "contactIds": contactIds
         ]
  
         let parameters = APIHelper.rejectNil(nillableParameters)

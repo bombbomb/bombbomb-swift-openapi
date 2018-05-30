@@ -37,6 +37,8 @@ public class JerichoConfiguration: JSONEncodable {
     public var sendWithoutVideo: Bool?
     /** The state of the send. */
     public var status: String?
+    /** The type of media used for a social send */
+    public var mediaType: String?
 
     public init() {}
 
@@ -58,6 +60,7 @@ public class JerichoConfiguration: JSONEncodable {
         nillableDictionary["emailBody"] = self.emailBody
         nillableDictionary["sendWithoutVideo"] = self.sendWithoutVideo
         nillableDictionary["status"] = self.status
+        nillableDictionary["mediaType"] = self.mediaType
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }

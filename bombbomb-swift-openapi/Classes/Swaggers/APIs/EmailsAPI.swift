@@ -251,6 +251,43 @@ public class EmailsAPI: APIBase {
     }
 
     /**
+     Get livefire feed data
+     
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getLiveFireData(completion: ((error: ErrorType?) -> Void)) {
+        getLiveFireDataWithRequestBuilder().execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get livefire feed data
+     - GET /emails/livefire
+     - Get the user data for the live fire feed emails
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getLiveFireDataWithRequestBuilder() -> RequestBuilder<Void> {
+        let path = "/emails/livefire"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
      Get all quicksend templates
      
      - parameter completion: completion handler to receive the data and the error objects
@@ -285,6 +322,153 @@ public class EmailsAPI: APIBase {
         let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     Get the HTML for a given template
+     
+     - parameter templateId: (path) The id of the template. 
+     - parameter renderVariables: (query) Whether to render profile variables in the returned HTML. (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getTemplateHtmlForTemplateId(templateId templateId: String, renderVariables: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        getTemplateHtmlForTemplateIdWithRequestBuilder(templateId: templateId, renderVariables: renderVariables).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get the HTML for a given template
+     - GET /emails/templates/{templateId}/html
+     - Get the HTML for a given template, with or without rendered variables
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter templateId: (path) The id of the template. 
+     - parameter renderVariables: (query) Whether to render profile variables in the returned HTML. (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getTemplateHtmlForTemplateIdWithRequestBuilder(templateId templateId: String, renderVariables: String? = nil) -> RequestBuilder<Void> {
+        var path = "/emails/templates/{templateId}/html"
+        path = path.stringByReplacingOccurrencesOfString("{templateId}", withString: "\(templateId)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "renderVariables": renderVariables
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Get quicksend data
+     
+     - parameter message: (query) A message for the video content. (optional)
+     - parameter subject: (query) A subject for the video content. (optional)
+     - parameter videoId: (query) A video ID. (optional)
+     - parameter templateId: (query) A template ID. (optional)
+     - parameter commaDelimEmails: (query) Comma delimited emails (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getVideoQuickSenderData(message message: String? = nil, subject: String? = nil, videoId: String? = nil, templateId: String? = nil, commaDelimEmails: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        getVideoQuickSenderDataWithRequestBuilder(message: message, subject: subject, videoId: videoId, templateId: templateId, commaDelimEmails: commaDelimEmails).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get quicksend data
+     - GET /emails/quicksend
+     - Get the user data for quicksender, including templates and lists.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter message: (query) A message for the video content. (optional)
+     - parameter subject: (query) A subject for the video content. (optional)
+     - parameter videoId: (query) A video ID. (optional)
+     - parameter templateId: (query) A template ID. (optional)
+     - parameter commaDelimEmails: (query) Comma delimited emails (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getVideoQuickSenderDataWithRequestBuilder(message message: String? = nil, subject: String? = nil, videoId: String? = nil, templateId: String? = nil, commaDelimEmails: String? = nil) -> RequestBuilder<Void> {
+        let path = "/emails/quicksend"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "message": message,
+            "subject": subject,
+            "videoId": videoId,
+            "templateId": templateId,
+            "commaDelimEmails": commaDelimEmails
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Save quicksender settings
+     
+     - parameter alertOnPlay: (form) A preference setting for whether or not to notify user on quicksend email video plays. (optional)
+     - parameter alertOnOpen: (form) A preference setting for whether or not to notify user on quicksend email opens. (optional)
+     - parameter templateId: (form) Id of a template to use for this send. A null value means use the default for this user. (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func saveQuickSenderSettings(alertOnPlay alertOnPlay: String? = nil, alertOnOpen: String? = nil, templateId: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        saveQuickSenderSettingsWithRequestBuilder(alertOnPlay: alertOnPlay, alertOnOpen: alertOnOpen, templateId: templateId).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Save quicksender settings
+     - POST /emails/quicksend/settings
+     - Save the quicksender notification and default template settings
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter alertOnPlay: (form) A preference setting for whether or not to notify user on quicksend email video plays. (optional)
+     - parameter alertOnOpen: (form) A preference setting for whether or not to notify user on quicksend email opens. (optional)
+     - parameter templateId: (form) Id of a template to use for this send. A null value means use the default for this user. (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func saveQuickSenderSettingsWithRequestBuilder(alertOnPlay alertOnPlay: String? = nil, alertOnOpen: String? = nil, templateId: String? = nil) -> RequestBuilder<Void> {
+        let path = "/emails/quicksend/settings"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "alertOnPlay": alertOnPlay,
+            "alertOnOpen": alertOnOpen,
+            "templateId": templateId
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
     /**

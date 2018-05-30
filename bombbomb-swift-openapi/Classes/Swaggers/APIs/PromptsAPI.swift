@@ -127,14 +127,13 @@ public class PromptsAPI: APIBase {
   "promptHtml" : "aeiou",
   "emailSubjectLine" : "aeiou",
   "thumbnailUrl" : "aeiou",
-  "userId" : "aeiou",
   "videoId" : "aeiou",
+  "userId" : "aeiou",
   "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
   "facebookMessage" : "aeiou",
   "createdDate" : "2000-01-23T04:56:07.000+00:00",
-  "hasSocial" : true,
-  "exampleVideoId" : "aeiou",
   "clientGroupId" : "aeiou",
+  "exampleVideoId" : "aeiou",
   "sendWithoutVideo" : true,
   "status" : "",
   "linkedinMessage" : "aeiou",
@@ -142,13 +141,14 @@ public class PromptsAPI: APIBase {
   "lastNotified" : "2000-01-23T04:56:07.000+00:00",
   "templateId" : "aeiou",
   "jerichoId" : "aeiou",
-  "contactId" : "aeiou",
   "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
+  "contactId" : "aeiou",
   "followupVideoId" : "aeiou",
   "toLists" : [ "aeiou" ],
-  "sendMechanism" : "aeiou",
+  "sendMechanism" : "2000-01-23T04:56:07.000+00:00",
   "emailContent" : "aeiou",
-  "promptSubject" : "aeiou"
+  "promptSubject" : "aeiou",
+  "alternateContentId" : "aeiou"
 }, contentType=application/json}]
      
      - parameter prompt: (body) The Video Email Prompt to be created 
@@ -165,6 +165,48 @@ public class PromptsAPI: APIBase {
         let requestBuilder: RequestBuilder<VideoEmailPrompt>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     List alternate campaign content
+     
+     - parameter clientGroupId: (query) Id for the campaign 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getAlternateCampaignContent(clientGroupId clientGroupId: String, completion: ((error: ErrorType?) -> Void)) {
+        getAlternateCampaignContentWithRequestBuilder(clientGroupId: clientGroupId).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     List alternate campaign content
+     - GET /campaign/{campaignId}/content/alternate
+     - Returns a list of alternate campaign content by campaign id
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter clientGroupId: (query) Id for the campaign 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getAlternateCampaignContentWithRequestBuilder(clientGroupId clientGroupId: String) -> RequestBuilder<Void> {
+        let path = "/campaign/{campaignId}/content/alternate"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "clientGroupId": clientGroupId
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
     /**
@@ -197,14 +239,13 @@ public class PromptsAPI: APIBase {
   "promptHtml" : "aeiou",
   "emailSubjectLine" : "aeiou",
   "thumbnailUrl" : "aeiou",
-  "userId" : "aeiou",
   "videoId" : "aeiou",
+  "userId" : "aeiou",
   "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
   "facebookMessage" : "aeiou",
   "createdDate" : "2000-01-23T04:56:07.000+00:00",
-  "hasSocial" : true,
-  "exampleVideoId" : "aeiou",
   "clientGroupId" : "aeiou",
+  "exampleVideoId" : "aeiou",
   "sendWithoutVideo" : true,
   "status" : "",
   "linkedinMessage" : "aeiou",
@@ -212,13 +253,14 @@ public class PromptsAPI: APIBase {
   "lastNotified" : "2000-01-23T04:56:07.000+00:00",
   "templateId" : "aeiou",
   "jerichoId" : "aeiou",
-  "contactId" : "aeiou",
   "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
+  "contactId" : "aeiou",
   "followupVideoId" : "aeiou",
   "toLists" : [ "aeiou" ],
-  "sendMechanism" : "aeiou",
+  "sendMechanism" : "2000-01-23T04:56:07.000+00:00",
   "emailContent" : "aeiou",
-  "promptSubject" : "aeiou"
+  "promptSubject" : "aeiou",
+  "alternateContentId" : "aeiou"
 } ], contentType=application/json}]
 
      - returns: RequestBuilder<[VideoEmailPrompt]> 
@@ -306,7 +348,7 @@ public class PromptsAPI: APIBase {
 
     /**
      List Prompt Campaigns
-     - GET /prompts/campaigns
+     - GET /prompts/{userId}/campaigns
      - Returns a list of all Prompt Campaigns for the user.
      - OAuth:
        - type: oauth2
@@ -315,7 +357,7 @@ public class PromptsAPI: APIBase {
      - returns: RequestBuilder<Void> 
      */
     public class func getPromptCampaignsWithRequestBuilder() -> RequestBuilder<Void> {
-        let path = "/prompts/campaigns"
+        let path = "/prompts/{userId}/campaigns"
         let URLString = bombbomb-swift-openapiAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [:]
@@ -360,14 +402,13 @@ public class PromptsAPI: APIBase {
   "promptHtml" : "aeiou",
   "emailSubjectLine" : "aeiou",
   "thumbnailUrl" : "aeiou",
-  "userId" : "aeiou",
   "videoId" : "aeiou",
+  "userId" : "aeiou",
   "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
   "facebookMessage" : "aeiou",
   "createdDate" : "2000-01-23T04:56:07.000+00:00",
-  "hasSocial" : true,
-  "exampleVideoId" : "aeiou",
   "clientGroupId" : "aeiou",
+  "exampleVideoId" : "aeiou",
   "sendWithoutVideo" : true,
   "status" : "",
   "linkedinMessage" : "aeiou",
@@ -375,13 +416,14 @@ public class PromptsAPI: APIBase {
   "lastNotified" : "2000-01-23T04:56:07.000+00:00",
   "templateId" : "aeiou",
   "jerichoId" : "aeiou",
-  "contactId" : "aeiou",
   "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
+  "contactId" : "aeiou",
   "followupVideoId" : "aeiou",
   "toLists" : [ "aeiou" ],
-  "sendMechanism" : "aeiou",
+  "sendMechanism" : "2000-01-23T04:56:07.000+00:00",
   "emailContent" : "aeiou",
-  "promptSubject" : "aeiou"
+  "promptSubject" : "aeiou",
+  "alternateContentId" : "aeiou"
 }, contentType=application/json}]
      
      - parameter id: (path) The Id of the prompt 
@@ -434,14 +476,13 @@ public class PromptsAPI: APIBase {
   "promptHtml" : "aeiou",
   "emailSubjectLine" : "aeiou",
   "thumbnailUrl" : "aeiou",
-  "userId" : "aeiou",
   "videoId" : "aeiou",
+  "userId" : "aeiou",
   "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
   "facebookMessage" : "aeiou",
   "createdDate" : "2000-01-23T04:56:07.000+00:00",
-  "hasSocial" : true,
-  "exampleVideoId" : "aeiou",
   "clientGroupId" : "aeiou",
+  "exampleVideoId" : "aeiou",
   "sendWithoutVideo" : true,
   "status" : "",
   "linkedinMessage" : "aeiou",
@@ -449,13 +490,14 @@ public class PromptsAPI: APIBase {
   "lastNotified" : "2000-01-23T04:56:07.000+00:00",
   "templateId" : "aeiou",
   "jerichoId" : "aeiou",
-  "contactId" : "aeiou",
   "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
+  "contactId" : "aeiou",
   "followupVideoId" : "aeiou",
   "toLists" : [ "aeiou" ],
-  "sendMechanism" : "aeiou",
+  "sendMechanism" : "2000-01-23T04:56:07.000+00:00",
   "emailContent" : "aeiou",
-  "promptSubject" : "aeiou"
+  "promptSubject" : "aeiou",
+  "alternateContentId" : "aeiou"
 } ], contentType=application/json}]
 
      - returns: RequestBuilder<[VideoEmailPrompt]> 
@@ -519,14 +561,13 @@ public class PromptsAPI: APIBase {
   "promptHtml" : "aeiou",
   "emailSubjectLine" : "aeiou",
   "thumbnailUrl" : "aeiou",
-  "userId" : "aeiou",
   "videoId" : "aeiou",
+  "userId" : "aeiou",
   "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
   "facebookMessage" : "aeiou",
   "createdDate" : "2000-01-23T04:56:07.000+00:00",
-  "hasSocial" : true,
-  "exampleVideoId" : "aeiou",
   "clientGroupId" : "aeiou",
+  "exampleVideoId" : "aeiou",
   "sendWithoutVideo" : true,
   "status" : "",
   "linkedinMessage" : "aeiou",
@@ -534,13 +575,14 @@ public class PromptsAPI: APIBase {
   "lastNotified" : "2000-01-23T04:56:07.000+00:00",
   "templateId" : "aeiou",
   "jerichoId" : "aeiou",
-  "contactId" : "aeiou",
   "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
+  "contactId" : "aeiou",
   "followupVideoId" : "aeiou",
   "toLists" : [ "aeiou" ],
-  "sendMechanism" : "aeiou",
+  "sendMechanism" : "2000-01-23T04:56:07.000+00:00",
   "emailContent" : "aeiou",
-  "promptSubject" : "aeiou"
+  "promptSubject" : "aeiou",
+  "alternateContentId" : "aeiou"
 }, contentType=application/json}]
      
      - parameter id: (path) The id of the prompt. 
@@ -573,6 +615,48 @@ public class PromptsAPI: APIBase {
     }
 
     /**
+     Syncs Campaigns and One to Ones Subscriptions for User
+     
+     - parameter migrate: (form) After syncing, migrate away from old campaigns. (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func syncPromptSubscriptions(migrate migrate: Bool? = nil, completion: ((error: ErrorType?) -> Void)) {
+        syncPromptSubscriptionsWithRequestBuilder(migrate: migrate).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Syncs Campaigns and One to Ones Subscriptions for User
+     - POST /prompts/campaigns/sync
+     - Syncs Campaigns and One to Ones Subscriptions for User based on their profile information. The user must be a Prompt Subscriber.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter migrate: (form) After syncing, migrate away from old campaigns. (optional)
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func syncPromptSubscriptionsWithRequestBuilder(migrate migrate: Bool? = nil) -> RequestBuilder<Void> {
+        let path = "/prompts/campaigns/sync"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "migrate": migrate
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
      Update Prompt
      
      - parameter id: (path) The prompt&#39;s id 
@@ -582,10 +666,13 @@ public class PromptsAPI: APIBase {
      - parameter videoId: (form) The id of the video. (optional)
      - parameter emailId: (form) The id of the email. (optional)
      - parameter subject: (form) The subject of the email (optional)
+     - parameter resetCache: (form) The subject of the email (optional)
+     - parameter resetEmailContent: (form) The subject of the email (optional)
+     - parameter status: (form) The status of the prompt (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func updatePrompt(id id: String, sendMechanism: String? = nil, facebookMessage: String? = nil, twitterMessage: String? = nil, videoId: String? = nil, emailId: String? = nil, subject: String? = nil, completion: ((error: ErrorType?) -> Void)) {
-        updatePromptWithRequestBuilder(id: id, sendMechanism: sendMechanism, facebookMessage: facebookMessage, twitterMessage: twitterMessage, videoId: videoId, emailId: emailId, subject: subject).execute { (response, error) -> Void in
+    public class func updatePrompt(id id: String, sendMechanism: String? = nil, facebookMessage: String? = nil, twitterMessage: String? = nil, videoId: String? = nil, emailId: String? = nil, subject: String? = nil, resetCache: String? = nil, resetEmailContent: String? = nil, status: String? = nil, completion: ((error: ErrorType?) -> Void)) {
+        updatePromptWithRequestBuilder(id: id, sendMechanism: sendMechanism, facebookMessage: facebookMessage, twitterMessage: twitterMessage, videoId: videoId, emailId: emailId, subject: subject, resetCache: resetCache, resetEmailContent: resetEmailContent, status: status).execute { (response, error) -> Void in
             completion(error: error);
         }
     }
@@ -606,10 +693,13 @@ public class PromptsAPI: APIBase {
      - parameter videoId: (form) The id of the video. (optional)
      - parameter emailId: (form) The id of the email. (optional)
      - parameter subject: (form) The subject of the email (optional)
+     - parameter resetCache: (form) The subject of the email (optional)
+     - parameter resetEmailContent: (form) The subject of the email (optional)
+     - parameter status: (form) The status of the prompt (optional)
 
      - returns: RequestBuilder<Void> 
      */
-    public class func updatePromptWithRequestBuilder(id id: String, sendMechanism: String? = nil, facebookMessage: String? = nil, twitterMessage: String? = nil, videoId: String? = nil, emailId: String? = nil, subject: String? = nil) -> RequestBuilder<Void> {
+    public class func updatePromptWithRequestBuilder(id id: String, sendMechanism: String? = nil, facebookMessage: String? = nil, twitterMessage: String? = nil, videoId: String? = nil, emailId: String? = nil, subject: String? = nil, resetCache: String? = nil, resetEmailContent: String? = nil, status: String? = nil) -> RequestBuilder<Void> {
         var path = "/prompts/{id}"
         path = path.stringByReplacingOccurrencesOfString("{id}", withString: "\(id)", options: .LiteralSearch, range: nil)
         let URLString = bombbomb-swift-openapiAPI.basePath + path
@@ -620,7 +710,10 @@ public class PromptsAPI: APIBase {
             "twitterMessage": twitterMessage,
             "videoId": videoId,
             "emailId": emailId,
-            "subject": subject
+            "subject": subject,
+            "resetCache": resetCache,
+            "resetEmailContent": resetEmailContent,
+            "status": status
         ]
  
         let parameters = APIHelper.rejectNil(nillableParameters)
@@ -764,6 +857,60 @@ public class PromptsAPI: APIBase {
             "personalTemplateId": personalTemplateId,
             "enabled": enabled,
             "sendMechanism": sendMechanism
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     Update Prompt Content
+     
+     - parameter id: (path) The prompt&#39;s id 
+     - parameter alternateContentId: (form) The alternate content id 
+     - parameter newEmailId: (form) The prompt&#39;s new email id 
+     - parameter ogEmailId: (form) The prompt&#39;s original email id 
+     - parameter newExampleVideoId: (form) The prompt&#39;s new tutorial video id 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func updatePromptTemplate(id id: String, alternateContentId: String, newEmailId: String, ogEmailId: String, newExampleVideoId: String, completion: ((error: ErrorType?) -> Void)) {
+        updatePromptTemplateWithRequestBuilder(id: id, alternateContentId: alternateContentId, newEmailId: newEmailId, ogEmailId: ogEmailId, newExampleVideoId: newExampleVideoId).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Update Prompt Content
+     - PUT /prompts/{id}/content
+     - Updates a Prompt Content
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter id: (path) The prompt&#39;s id 
+     - parameter alternateContentId: (form) The alternate content id 
+     - parameter newEmailId: (form) The prompt&#39;s new email id 
+     - parameter ogEmailId: (form) The prompt&#39;s original email id 
+     - parameter newExampleVideoId: (form) The prompt&#39;s new tutorial video id 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func updatePromptTemplateWithRequestBuilder(id id: String, alternateContentId: String, newEmailId: String, ogEmailId: String, newExampleVideoId: String) -> RequestBuilder<Void> {
+        var path = "/prompts/{id}/content"
+        path = path.stringByReplacingOccurrencesOfString("{id}", withString: "\(id)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "alternateContentId": alternateContentId,
+            "newEmailId": newEmailId,
+            "ogEmailId": ogEmailId,
+            "newExampleVideoId": newExampleVideoId
         ]
  
         let parameters = APIHelper.rejectNil(nillableParameters)
