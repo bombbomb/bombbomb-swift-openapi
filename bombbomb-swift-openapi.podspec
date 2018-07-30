@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
   s.tvos.deployment_target = '9.0'
-  s.version = '2.0.831'
+  s.version = '2.0.25798'
   s.source = { :git => 'git@github.com:swagger-api/swagger-mustache.git', :tag => 'v1.0.0' }
   s.authors = 'Swagger Codegen'
   s.license = 'Proprietary'
