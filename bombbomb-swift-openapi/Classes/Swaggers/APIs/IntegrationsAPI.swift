@@ -215,7 +215,7 @@ public class IntegrationsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example="aeiou", contentType=application/json}]
+     - examples: [{contentType=application/json, example=""}]
      
      - parameter integrationId: (query) The integration to sync lists for. All integrations will sync if nothing is provided. (optional)
 

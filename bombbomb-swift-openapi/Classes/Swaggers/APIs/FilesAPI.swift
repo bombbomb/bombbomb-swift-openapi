@@ -71,14 +71,14 @@ public class FilesAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "id" : "aeiou",
-  "longUrl" : "aeiou",
-  "userId" : "aeiou",
-  "fileName" : "aeiou",
-  "shortUrl" : "aeiou",
-  "uploadDate" : "2000-01-23T04:56:07.000+00:00"
-}, contentType=application/json}]
+     - examples: [{contentType=application/json, example={
+  "fileName" : "fileName",
+  "uploadDate" : "2000-01-23T04:56:07.000+00:00",
+  "shortUrl" : "shortUrl",
+  "longUrl" : "longUrl",
+  "id" : "id",
+  "userId" : "userId"
+}}]
      
      - parameter docId: (path) Id of document 
 
@@ -119,14 +119,21 @@ public class FilesAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example=[ {
-  "id" : "aeiou",
-  "longUrl" : "aeiou",
-  "userId" : "aeiou",
-  "fileName" : "aeiou",
-  "shortUrl" : "aeiou",
-  "uploadDate" : "2000-01-23T04:56:07.000+00:00"
-} ], contentType=application/json}]
+     - examples: [{contentType=application/json, example=[ {
+  "fileName" : "fileName",
+  "uploadDate" : "2000-01-23T04:56:07.000+00:00",
+  "shortUrl" : "shortUrl",
+  "longUrl" : "longUrl",
+  "id" : "id",
+  "userId" : "userId"
+}, {
+  "fileName" : "fileName",
+  "uploadDate" : "2000-01-23T04:56:07.000+00:00",
+  "shortUrl" : "shortUrl",
+  "longUrl" : "longUrl",
+  "id" : "id",
+  "userId" : "userId"
+} ]}]
 
      - returns: RequestBuilder<[HostedDoc]> 
      */
@@ -165,14 +172,21 @@ public class FilesAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example=[ {
-  "id" : "aeiou",
-  "longUrl" : "aeiou",
-  "userId" : "aeiou",
-  "fileName" : "aeiou",
-  "shortUrl" : "aeiou",
-  "uploadDate" : "2000-01-23T04:56:07.000+00:00"
-} ], contentType=application/json}]
+     - examples: [{contentType=application/json, example=[ {
+  "fileName" : "fileName",
+  "uploadDate" : "2000-01-23T04:56:07.000+00:00",
+  "shortUrl" : "shortUrl",
+  "longUrl" : "longUrl",
+  "id" : "id",
+  "userId" : "userId"
+}, {
+  "fileName" : "fileName",
+  "uploadDate" : "2000-01-23T04:56:07.000+00:00",
+  "shortUrl" : "shortUrl",
+  "longUrl" : "longUrl",
+  "id" : "id",
+  "userId" : "userId"
+} ]}]
      
      - parameter file: (form) The file being uploaded 
 

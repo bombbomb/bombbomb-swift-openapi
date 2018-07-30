@@ -31,14 +31,14 @@ public class UtilitiesAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "grantsAllowed" : "aeiou",
-  "owningUserId" : "aeiou",
-  "name" : "aeiou",
-  "redirectUri" : "aeiou",
-  "clientSecret" : "aeiou",
-  "identifier" : "aeiou"
-}, contentType=application/json}]
+     - examples: [{contentType=application/json, example={
+  "redirectUri" : "redirectUri",
+  "identifier" : "identifier",
+  "name" : "name",
+  "grantsAllowed" : "grantsAllowed",
+  "clientSecret" : "clientSecret",
+  "owningUserId" : "owningUserId"
+}}]
      
      - parameter name: (form) The name of the OAuth client. e.g. MyCrm DEV, or MyCrm PROD 
      - parameter redirectUri: (form) The URI to direct the client to after logging in. 
@@ -123,14 +123,21 @@ public class UtilitiesAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example=[ {
-  "grantsAllowed" : "aeiou",
-  "owningUserId" : "aeiou",
-  "name" : "aeiou",
-  "redirectUri" : "aeiou",
-  "clientSecret" : "aeiou",
-  "identifier" : "aeiou"
-} ], contentType=application/json}]
+     - examples: [{contentType=application/json, example=[ {
+  "redirectUri" : "redirectUri",
+  "identifier" : "identifier",
+  "name" : "name",
+  "grantsAllowed" : "grantsAllowed",
+  "clientSecret" : "clientSecret",
+  "owningUserId" : "owningUserId"
+}, {
+  "redirectUri" : "redirectUri",
+  "identifier" : "identifier",
+  "name" : "name",
+  "grantsAllowed" : "grantsAllowed",
+  "clientSecret" : "clientSecret",
+  "owningUserId" : "owningUserId"
+} ]}]
 
      - returns: RequestBuilder<[OAuthClient]> 
      */

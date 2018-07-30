@@ -39,23 +39,23 @@ public class PromptsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "startDate" : "2000-01-23T04:56:07.000+00:00",
-  "status" : "",
-  "subject" : "aeiou",
+     - examples: [{contentType=application/json, example={
+  "botTypeId" : "botTypeId",
   "endDate" : "2000-01-23T04:56:07.000+00:00",
-  "generatedBy" : "aeiou",
-  "content" : "aeiou",
-  "id" : "aeiou",
-  "templateId" : "aeiou",
-  "emailId" : "aeiou",
-  "botTypeId" : "aeiou",
-  "listId" : "aeiou",
-  "userId" : "aeiou",
-  "name" : "aeiou",
-  "videoId" : "aeiou",
-  "contactFieldValueColumn" : "aeiou"
-}, contentType=application/json}]
+  "subject" : "subject",
+  "emailId" : "emailId",
+  "videoId" : "videoId",
+  "contactFieldValueColumn" : "contactFieldValueColumn",
+  "templateId" : "templateId",
+  "userId" : "userId",
+  "content" : "content",
+  "listId" : "listId",
+  "name" : "name",
+  "id" : "id",
+  "generatedBy" : "generatedBy",
+  "startDate" : "2000-01-23T04:56:07.000+00:00",
+  "status" : 0
+}}]
      
      - parameter emailId: (form) The default email to use. 
      - parameter name: (form) The name of the bot. 
@@ -116,40 +116,40 @@ public class PromptsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "promptBotId" : "aeiou",
-  "twitterMessage" : "aeiou",
-  "jobId" : "aeiou",
-  "promptIntro" : "aeiou",
-  "sendTypes" : [ "aeiou" ],
-  "id" : "aeiou",
-  "emailId" : "aeiou",
-  "promptHtml" : "aeiou",
-  "emailSubjectLine" : "aeiou",
-  "thumbnailUrl" : "aeiou",
-  "videoId" : "aeiou",
-  "userId" : "aeiou",
-  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
-  "facebookMessage" : "aeiou",
-  "createdDate" : "2000-01-23T04:56:07.000+00:00",
-  "clientGroupId" : "aeiou",
-  "exampleVideoId" : "aeiou",
-  "sendWithoutVideo" : true,
-  "status" : "",
-  "linkedinMessage" : "aeiou",
-  "applyTemplate" : true,
-  "lastNotified" : "2000-01-23T04:56:07.000+00:00",
-  "templateId" : "aeiou",
-  "jerichoId" : "aeiou",
+     - examples: [{contentType=application/json, example={
+  "twitterMessage" : "twitterMessage",
+  "toLists" : [ "toLists", "toLists" ],
   "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
-  "contactId" : "aeiou",
-  "followupVideoId" : "aeiou",
-  "toLists" : [ "aeiou" ],
+  "promptHtml" : "promptHtml",
+  "videoId" : "videoId",
+  "emailId" : "emailId",
+  "exampleVideoId" : "exampleVideoId",
+  "templateId" : "templateId",
+  "promptSubject" : "promptSubject",
+  "followupVideoId" : "followupVideoId",
+  "alternateContentId" : "alternateContentId",
+  "promptIntro" : "promptIntro",
+  "id" : "id",
+  "applyTemplate" : true,
+  "linkedinMessage" : "linkedinMessage",
+  "thumbnailUrl" : "thumbnailUrl",
+  "contactId" : "contactId",
+  "clientGroupId" : "clientGroupId",
+  "emailSubjectLine" : "emailSubjectLine",
+  "facebookMessage" : "facebookMessage",
+  "userId" : "userId",
+  "sendTypes" : [ "sendTypes", "sendTypes" ],
+  "promptBotId" : "promptBotId",
   "sendMechanism" : "2000-01-23T04:56:07.000+00:00",
-  "emailContent" : "aeiou",
-  "promptSubject" : "aeiou",
-  "alternateContentId" : "aeiou"
-}, contentType=application/json}]
+  "jerichoId" : "jerichoId",
+  "jobId" : "jobId",
+  "createdDate" : "2000-01-23T04:56:07.000+00:00",
+  "sendWithoutVideo" : true,
+  "emailContent" : "emailContent",
+  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
+  "lastNotified" : "2000-01-23T04:56:07.000+00:00",
+  "status" : 0
+}}]
      
      - parameter prompt: (body) The Video Email Prompt to be created 
 
@@ -228,40 +228,73 @@ public class PromptsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example=[ {
-  "promptBotId" : "aeiou",
-  "twitterMessage" : "aeiou",
-  "jobId" : "aeiou",
-  "promptIntro" : "aeiou",
-  "sendTypes" : [ "aeiou" ],
-  "id" : "aeiou",
-  "emailId" : "aeiou",
-  "promptHtml" : "aeiou",
-  "emailSubjectLine" : "aeiou",
-  "thumbnailUrl" : "aeiou",
-  "videoId" : "aeiou",
-  "userId" : "aeiou",
-  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
-  "facebookMessage" : "aeiou",
-  "createdDate" : "2000-01-23T04:56:07.000+00:00",
-  "clientGroupId" : "aeiou",
-  "exampleVideoId" : "aeiou",
-  "sendWithoutVideo" : true,
-  "status" : "",
-  "linkedinMessage" : "aeiou",
-  "applyTemplate" : true,
-  "lastNotified" : "2000-01-23T04:56:07.000+00:00",
-  "templateId" : "aeiou",
-  "jerichoId" : "aeiou",
+     - examples: [{contentType=application/json, example=[ {
+  "twitterMessage" : "twitterMessage",
+  "toLists" : [ "toLists", "toLists" ],
   "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
-  "contactId" : "aeiou",
-  "followupVideoId" : "aeiou",
-  "toLists" : [ "aeiou" ],
+  "promptHtml" : "promptHtml",
+  "videoId" : "videoId",
+  "emailId" : "emailId",
+  "exampleVideoId" : "exampleVideoId",
+  "templateId" : "templateId",
+  "promptSubject" : "promptSubject",
+  "followupVideoId" : "followupVideoId",
+  "alternateContentId" : "alternateContentId",
+  "promptIntro" : "promptIntro",
+  "id" : "id",
+  "applyTemplate" : true,
+  "linkedinMessage" : "linkedinMessage",
+  "thumbnailUrl" : "thumbnailUrl",
+  "contactId" : "contactId",
+  "clientGroupId" : "clientGroupId",
+  "emailSubjectLine" : "emailSubjectLine",
+  "facebookMessage" : "facebookMessage",
+  "userId" : "userId",
+  "sendTypes" : [ "sendTypes", "sendTypes" ],
+  "promptBotId" : "promptBotId",
   "sendMechanism" : "2000-01-23T04:56:07.000+00:00",
-  "emailContent" : "aeiou",
-  "promptSubject" : "aeiou",
-  "alternateContentId" : "aeiou"
-} ], contentType=application/json}]
+  "jerichoId" : "jerichoId",
+  "jobId" : "jobId",
+  "createdDate" : "2000-01-23T04:56:07.000+00:00",
+  "sendWithoutVideo" : true,
+  "emailContent" : "emailContent",
+  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
+  "lastNotified" : "2000-01-23T04:56:07.000+00:00",
+  "status" : 0
+}, {
+  "twitterMessage" : "twitterMessage",
+  "toLists" : [ "toLists", "toLists" ],
+  "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
+  "promptHtml" : "promptHtml",
+  "videoId" : "videoId",
+  "emailId" : "emailId",
+  "exampleVideoId" : "exampleVideoId",
+  "templateId" : "templateId",
+  "promptSubject" : "promptSubject",
+  "followupVideoId" : "followupVideoId",
+  "alternateContentId" : "alternateContentId",
+  "promptIntro" : "promptIntro",
+  "id" : "id",
+  "applyTemplate" : true,
+  "linkedinMessage" : "linkedinMessage",
+  "thumbnailUrl" : "thumbnailUrl",
+  "contactId" : "contactId",
+  "clientGroupId" : "clientGroupId",
+  "emailSubjectLine" : "emailSubjectLine",
+  "facebookMessage" : "facebookMessage",
+  "userId" : "userId",
+  "sendTypes" : [ "sendTypes", "sendTypes" ],
+  "promptBotId" : "promptBotId",
+  "sendMechanism" : "2000-01-23T04:56:07.000+00:00",
+  "jerichoId" : "jerichoId",
+  "jobId" : "jobId",
+  "createdDate" : "2000-01-23T04:56:07.000+00:00",
+  "sendWithoutVideo" : true,
+  "emailContent" : "emailContent",
+  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
+  "lastNotified" : "2000-01-23T04:56:07.000+00:00",
+  "status" : 0
+} ]}]
 
      - returns: RequestBuilder<[VideoEmailPrompt]> 
      */
@@ -299,23 +332,39 @@ public class PromptsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example=[ {
-  "startDate" : "2000-01-23T04:56:07.000+00:00",
-  "status" : "",
-  "subject" : "aeiou",
+     - examples: [{contentType=application/json, example=[ {
+  "botTypeId" : "botTypeId",
   "endDate" : "2000-01-23T04:56:07.000+00:00",
-  "generatedBy" : "aeiou",
-  "content" : "aeiou",
-  "id" : "aeiou",
-  "templateId" : "aeiou",
-  "emailId" : "aeiou",
-  "botTypeId" : "aeiou",
-  "listId" : "aeiou",
-  "userId" : "aeiou",
-  "name" : "aeiou",
-  "videoId" : "aeiou",
-  "contactFieldValueColumn" : "aeiou"
-} ], contentType=application/json}]
+  "subject" : "subject",
+  "emailId" : "emailId",
+  "videoId" : "videoId",
+  "contactFieldValueColumn" : "contactFieldValueColumn",
+  "templateId" : "templateId",
+  "userId" : "userId",
+  "content" : "content",
+  "listId" : "listId",
+  "name" : "name",
+  "id" : "id",
+  "generatedBy" : "generatedBy",
+  "startDate" : "2000-01-23T04:56:07.000+00:00",
+  "status" : 0
+}, {
+  "botTypeId" : "botTypeId",
+  "endDate" : "2000-01-23T04:56:07.000+00:00",
+  "subject" : "subject",
+  "emailId" : "emailId",
+  "videoId" : "videoId",
+  "contactFieldValueColumn" : "contactFieldValueColumn",
+  "templateId" : "templateId",
+  "userId" : "userId",
+  "content" : "content",
+  "listId" : "listId",
+  "name" : "name",
+  "id" : "id",
+  "generatedBy" : "generatedBy",
+  "startDate" : "2000-01-23T04:56:07.000+00:00",
+  "status" : 0
+} ]}]
 
      - returns: RequestBuilder<[PromptBot]> 
      */
@@ -391,40 +440,40 @@ public class PromptsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "promptBotId" : "aeiou",
-  "twitterMessage" : "aeiou",
-  "jobId" : "aeiou",
-  "promptIntro" : "aeiou",
-  "sendTypes" : [ "aeiou" ],
-  "id" : "aeiou",
-  "emailId" : "aeiou",
-  "promptHtml" : "aeiou",
-  "emailSubjectLine" : "aeiou",
-  "thumbnailUrl" : "aeiou",
-  "videoId" : "aeiou",
-  "userId" : "aeiou",
-  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
-  "facebookMessage" : "aeiou",
-  "createdDate" : "2000-01-23T04:56:07.000+00:00",
-  "clientGroupId" : "aeiou",
-  "exampleVideoId" : "aeiou",
-  "sendWithoutVideo" : true,
-  "status" : "",
-  "linkedinMessage" : "aeiou",
-  "applyTemplate" : true,
-  "lastNotified" : "2000-01-23T04:56:07.000+00:00",
-  "templateId" : "aeiou",
-  "jerichoId" : "aeiou",
+     - examples: [{contentType=application/json, example={
+  "twitterMessage" : "twitterMessage",
+  "toLists" : [ "toLists", "toLists" ],
   "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
-  "contactId" : "aeiou",
-  "followupVideoId" : "aeiou",
-  "toLists" : [ "aeiou" ],
+  "promptHtml" : "promptHtml",
+  "videoId" : "videoId",
+  "emailId" : "emailId",
+  "exampleVideoId" : "exampleVideoId",
+  "templateId" : "templateId",
+  "promptSubject" : "promptSubject",
+  "followupVideoId" : "followupVideoId",
+  "alternateContentId" : "alternateContentId",
+  "promptIntro" : "promptIntro",
+  "id" : "id",
+  "applyTemplate" : true,
+  "linkedinMessage" : "linkedinMessage",
+  "thumbnailUrl" : "thumbnailUrl",
+  "contactId" : "contactId",
+  "clientGroupId" : "clientGroupId",
+  "emailSubjectLine" : "emailSubjectLine",
+  "facebookMessage" : "facebookMessage",
+  "userId" : "userId",
+  "sendTypes" : [ "sendTypes", "sendTypes" ],
+  "promptBotId" : "promptBotId",
   "sendMechanism" : "2000-01-23T04:56:07.000+00:00",
-  "emailContent" : "aeiou",
-  "promptSubject" : "aeiou",
-  "alternateContentId" : "aeiou"
-}, contentType=application/json}]
+  "jerichoId" : "jerichoId",
+  "jobId" : "jobId",
+  "createdDate" : "2000-01-23T04:56:07.000+00:00",
+  "sendWithoutVideo" : true,
+  "emailContent" : "emailContent",
+  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
+  "lastNotified" : "2000-01-23T04:56:07.000+00:00",
+  "status" : 0
+}}]
      
      - parameter id: (path) The Id of the prompt 
 
@@ -465,40 +514,73 @@ public class PromptsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example=[ {
-  "promptBotId" : "aeiou",
-  "twitterMessage" : "aeiou",
-  "jobId" : "aeiou",
-  "promptIntro" : "aeiou",
-  "sendTypes" : [ "aeiou" ],
-  "id" : "aeiou",
-  "emailId" : "aeiou",
-  "promptHtml" : "aeiou",
-  "emailSubjectLine" : "aeiou",
-  "thumbnailUrl" : "aeiou",
-  "videoId" : "aeiou",
-  "userId" : "aeiou",
-  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
-  "facebookMessage" : "aeiou",
-  "createdDate" : "2000-01-23T04:56:07.000+00:00",
-  "clientGroupId" : "aeiou",
-  "exampleVideoId" : "aeiou",
-  "sendWithoutVideo" : true,
-  "status" : "",
-  "linkedinMessage" : "aeiou",
-  "applyTemplate" : true,
-  "lastNotified" : "2000-01-23T04:56:07.000+00:00",
-  "templateId" : "aeiou",
-  "jerichoId" : "aeiou",
+     - examples: [{contentType=application/json, example=[ {
+  "twitterMessage" : "twitterMessage",
+  "toLists" : [ "toLists", "toLists" ],
   "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
-  "contactId" : "aeiou",
-  "followupVideoId" : "aeiou",
-  "toLists" : [ "aeiou" ],
+  "promptHtml" : "promptHtml",
+  "videoId" : "videoId",
+  "emailId" : "emailId",
+  "exampleVideoId" : "exampleVideoId",
+  "templateId" : "templateId",
+  "promptSubject" : "promptSubject",
+  "followupVideoId" : "followupVideoId",
+  "alternateContentId" : "alternateContentId",
+  "promptIntro" : "promptIntro",
+  "id" : "id",
+  "applyTemplate" : true,
+  "linkedinMessage" : "linkedinMessage",
+  "thumbnailUrl" : "thumbnailUrl",
+  "contactId" : "contactId",
+  "clientGroupId" : "clientGroupId",
+  "emailSubjectLine" : "emailSubjectLine",
+  "facebookMessage" : "facebookMessage",
+  "userId" : "userId",
+  "sendTypes" : [ "sendTypes", "sendTypes" ],
+  "promptBotId" : "promptBotId",
   "sendMechanism" : "2000-01-23T04:56:07.000+00:00",
-  "emailContent" : "aeiou",
-  "promptSubject" : "aeiou",
-  "alternateContentId" : "aeiou"
-} ], contentType=application/json}]
+  "jerichoId" : "jerichoId",
+  "jobId" : "jobId",
+  "createdDate" : "2000-01-23T04:56:07.000+00:00",
+  "sendWithoutVideo" : true,
+  "emailContent" : "emailContent",
+  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
+  "lastNotified" : "2000-01-23T04:56:07.000+00:00",
+  "status" : 0
+}, {
+  "twitterMessage" : "twitterMessage",
+  "toLists" : [ "toLists", "toLists" ],
+  "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
+  "promptHtml" : "promptHtml",
+  "videoId" : "videoId",
+  "emailId" : "emailId",
+  "exampleVideoId" : "exampleVideoId",
+  "templateId" : "templateId",
+  "promptSubject" : "promptSubject",
+  "followupVideoId" : "followupVideoId",
+  "alternateContentId" : "alternateContentId",
+  "promptIntro" : "promptIntro",
+  "id" : "id",
+  "applyTemplate" : true,
+  "linkedinMessage" : "linkedinMessage",
+  "thumbnailUrl" : "thumbnailUrl",
+  "contactId" : "contactId",
+  "clientGroupId" : "clientGroupId",
+  "emailSubjectLine" : "emailSubjectLine",
+  "facebookMessage" : "facebookMessage",
+  "userId" : "userId",
+  "sendTypes" : [ "sendTypes", "sendTypes" ],
+  "promptBotId" : "promptBotId",
+  "sendMechanism" : "2000-01-23T04:56:07.000+00:00",
+  "jerichoId" : "jerichoId",
+  "jobId" : "jobId",
+  "createdDate" : "2000-01-23T04:56:07.000+00:00",
+  "sendWithoutVideo" : true,
+  "emailContent" : "emailContent",
+  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
+  "lastNotified" : "2000-01-23T04:56:07.000+00:00",
+  "status" : 0
+} ]}]
 
      - returns: RequestBuilder<[VideoEmailPrompt]> 
      */
@@ -550,40 +632,40 @@ public class PromptsAPI: APIBase {
      Respond to a prompt
      - POST /prompt/{id}/response
      - Respond to a prompt by either adding a video, sending without a video or cancelling the prompt.
-     - examples: [{example={
-  "promptBotId" : "aeiou",
-  "twitterMessage" : "aeiou",
-  "jobId" : "aeiou",
-  "promptIntro" : "aeiou",
-  "sendTypes" : [ "aeiou" ],
-  "id" : "aeiou",
-  "emailId" : "aeiou",
-  "promptHtml" : "aeiou",
-  "emailSubjectLine" : "aeiou",
-  "thumbnailUrl" : "aeiou",
-  "videoId" : "aeiou",
-  "userId" : "aeiou",
-  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
-  "facebookMessage" : "aeiou",
-  "createdDate" : "2000-01-23T04:56:07.000+00:00",
-  "clientGroupId" : "aeiou",
-  "exampleVideoId" : "aeiou",
-  "sendWithoutVideo" : true,
-  "status" : "",
-  "linkedinMessage" : "aeiou",
-  "applyTemplate" : true,
-  "lastNotified" : "2000-01-23T04:56:07.000+00:00",
-  "templateId" : "aeiou",
-  "jerichoId" : "aeiou",
+     - examples: [{contentType=application/json, example={
+  "twitterMessage" : "twitterMessage",
+  "toLists" : [ "toLists", "toLists" ],
   "videoDueDate" : "2000-01-23T04:56:07.000+00:00",
-  "contactId" : "aeiou",
-  "followupVideoId" : "aeiou",
-  "toLists" : [ "aeiou" ],
+  "promptHtml" : "promptHtml",
+  "videoId" : "videoId",
+  "emailId" : "emailId",
+  "exampleVideoId" : "exampleVideoId",
+  "templateId" : "templateId",
+  "promptSubject" : "promptSubject",
+  "followupVideoId" : "followupVideoId",
+  "alternateContentId" : "alternateContentId",
+  "promptIntro" : "promptIntro",
+  "id" : "id",
+  "applyTemplate" : true,
+  "linkedinMessage" : "linkedinMessage",
+  "thumbnailUrl" : "thumbnailUrl",
+  "contactId" : "contactId",
+  "clientGroupId" : "clientGroupId",
+  "emailSubjectLine" : "emailSubjectLine",
+  "facebookMessage" : "facebookMessage",
+  "userId" : "userId",
+  "sendTypes" : [ "sendTypes", "sendTypes" ],
+  "promptBotId" : "promptBotId",
   "sendMechanism" : "2000-01-23T04:56:07.000+00:00",
-  "emailContent" : "aeiou",
-  "promptSubject" : "aeiou",
-  "alternateContentId" : "aeiou"
-}, contentType=application/json}]
+  "jerichoId" : "jerichoId",
+  "jobId" : "jobId",
+  "createdDate" : "2000-01-23T04:56:07.000+00:00",
+  "sendWithoutVideo" : true,
+  "emailContent" : "emailContent",
+  "scheduledSendDate" : "2000-01-23T04:56:07.000+00:00",
+  "lastNotified" : "2000-01-23T04:56:07.000+00:00",
+  "status" : 0
+}}]
      
      - parameter id: (path) The id of the prompt. 
      - parameter choice: (form) The users&#39; selection. Can be: WithVideo, WithEmail, Cancel, Restore, Reset, Manual 
@@ -612,6 +694,47 @@ public class PromptsAPI: APIBase {
         let requestBuilder: RequestBuilder<VideoEmailPrompt>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+     
+     
+     - parameter id: (path) The Id of the prompt 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func sendPromptImmediately(id id: String, completion: ((error: ErrorType?) -> Void)) {
+        sendPromptImmediatelyWithRequestBuilder(id: id).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     
+     - POST /prompt/{id}/sendit
+     - Ignore send date and send the prompt now.
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter id: (path) The Id of the prompt 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func sendPromptImmediatelyWithRequestBuilder(id id: String) -> RequestBuilder<Void> {
+        var path = "/prompt/{id}/sendit"
+        path = path.stringByReplacingOccurrencesOfString("{id}", withString: "\(id)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
 
     /**
@@ -755,23 +878,23 @@ public class PromptsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "startDate" : "2000-01-23T04:56:07.000+00:00",
-  "status" : "",
-  "subject" : "aeiou",
+     - examples: [{contentType=application/json, example={
+  "botTypeId" : "botTypeId",
   "endDate" : "2000-01-23T04:56:07.000+00:00",
-  "generatedBy" : "aeiou",
-  "content" : "aeiou",
-  "id" : "aeiou",
-  "templateId" : "aeiou",
-  "emailId" : "aeiou",
-  "botTypeId" : "aeiou",
-  "listId" : "aeiou",
-  "userId" : "aeiou",
-  "name" : "aeiou",
-  "videoId" : "aeiou",
-  "contactFieldValueColumn" : "aeiou"
-}, contentType=application/json}]
+  "subject" : "subject",
+  "emailId" : "emailId",
+  "videoId" : "videoId",
+  "contactFieldValueColumn" : "contactFieldValueColumn",
+  "templateId" : "templateId",
+  "userId" : "userId",
+  "content" : "content",
+  "listId" : "listId",
+  "name" : "name",
+  "id" : "id",
+  "generatedBy" : "generatedBy",
+  "startDate" : "2000-01-23T04:56:07.000+00:00",
+  "status" : 0
+}}]
      
      - parameter id: (path) The bot id. 
      - parameter emailId: (form) The default email to use. 
@@ -817,7 +940,7 @@ public class PromptsAPI: APIBase {
     /**
      Update Prompt Campaign
      
-     - parameter clientGroupId: (form) The client group of the campaign. 
+     - parameter clientGroupId: (path) The client group of the campaign. 
      - parameter brandedTemplateId: (form) The template to use for branded feel emails. (optional)
      - parameter personalTemplateId: (form) The template to use for personal feel emails. (optional)
      - parameter enabled: (form) Set whether the user is able to start receiving prompts. (optional)
@@ -833,13 +956,13 @@ public class PromptsAPI: APIBase {
 
     /**
      Update Prompt Campaign
-     - PUT /prompts/campaigns/{id}
+     - PUT /prompts/campaigns/{clientGroupId}
      - Updates a Prompt Campaign's Settings
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
      
-     - parameter clientGroupId: (form) The client group of the campaign. 
+     - parameter clientGroupId: (path) The client group of the campaign. 
      - parameter brandedTemplateId: (form) The template to use for branded feel emails. (optional)
      - parameter personalTemplateId: (form) The template to use for personal feel emails. (optional)
      - parameter enabled: (form) Set whether the user is able to start receiving prompts. (optional)
@@ -848,11 +971,11 @@ public class PromptsAPI: APIBase {
      - returns: RequestBuilder<Void> 
      */
     public class func updatePromptCampaignWithRequestBuilder(clientGroupId clientGroupId: String, brandedTemplateId: String? = nil, personalTemplateId: String? = nil, enabled: Bool? = nil, sendMechanism: String? = nil) -> RequestBuilder<Void> {
-        let path = "/prompts/campaigns/{id}"
+        var path = "/prompts/campaigns/{clientGroupId}"
+        path = path.stringByReplacingOccurrencesOfString("{clientGroupId}", withString: "\(clientGroupId)", options: .LiteralSearch, range: nil)
         let URLString = bombbomb-swift-openapiAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [
-            "clientGroupId": clientGroupId,
             "brandedTemplateId": brandedTemplateId,
             "personalTemplateId": personalTemplateId,
             "enabled": enabled,

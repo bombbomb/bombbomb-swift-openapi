@@ -10,7 +10,7 @@ import Foundation
 
 public class InlineResponse200: JSONEncodable {
     public var totalPages: Int32?
-    public var items: [InlineResponse200Items]?
+    public var items: [ClientGroupAssetMetaData]?
 
     public init() {}
 

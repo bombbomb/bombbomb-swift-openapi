@@ -39,6 +39,8 @@ public class JerichoConfiguration: JSONEncodable {
     public var status: String?
     /** The type of media used for a social send */
     public var mediaType: String?
+    /** The custom subject line for the prompt initial email */
+    public var customInitialEmailSubjectLine: String?
 
     public init() {}
 
@@ -61,6 +63,7 @@ public class JerichoConfiguration: JSONEncodable {
         nillableDictionary["sendWithoutVideo"] = self.sendWithoutVideo
         nillableDictionary["status"] = self.status
         nillableDictionary["mediaType"] = self.mediaType
+        nillableDictionary["customInitialEmailSubjectLine"] = self.customInitialEmailSubjectLine
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }

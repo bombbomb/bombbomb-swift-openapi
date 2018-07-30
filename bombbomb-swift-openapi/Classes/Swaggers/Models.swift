@@ -10,22 +10,26 @@ protocol JSONEncodable {
     func encodeToJSON() -> AnyObject
 }
 
+public enum ErrorResponse : ErrorType {
+    case Error(Int, NSData?, ErrorType)
+}
+
 public class Response<T> {
     public let statusCode: Int
     public let header: [String: String]
-    public let body: T
+    public let body: T?
 
-    public init(statusCode: Int, header: [String: String], body: T) {
+    public init(statusCode: Int, header: [String: String], body: T?) {
         self.statusCode = statusCode
         self.header = header
         self.body = body
     }
 
-    public convenience init(response: NSHTTPURLResponse, body: T) {
+    public convenience init(response: NSHTTPURLResponse, body: T?) {
         let rawHeader = response.allHeaderFields
         var header = [String:String]()
-        for (key, value) in rawHeader {
-            header[key as! String] = value as? String
+        for case let (key, value) as (String, String) in rawHeader {
+            header[key] = value
         }
         self.init(statusCode: response.statusCode, header: header, body: body)
     }
@@ -117,6 +121,7 @@ class Decoders {
                 "yyyy-MM-dd'T'HH:mm:ss.SSS"
             ].map { (format: String) -> NSDateFormatter in
                 let formatter = NSDateFormatter()
+                formatter.locale = NSLocale(localeIdentifier:"en_US_POSIX")
                 formatter.dateFormat = format
                 return formatter
             }
@@ -135,7 +140,16 @@ class Decoders {
                     return NSDate(timeIntervalSince1970: Double(sourceInt / 1000) )
                 }
                 fatalError("formatter failed to parse \(source)")
-            } 
+            }
+
+            // Decoder for ISOFullDate
+            Decoders.addDecoder(clazz: ISOFullDate.self, decoder: { (source: AnyObject) -> ISOFullDate in
+                if let string = source as? String,
+                   let isoDate = ISOFullDate.from(string: string) {
+                    return isoDate
+                }
+                fatalError("formatter failed to parse \(source)")
+            }) 
 
             // Decoder for [BBWebHook]
             Decoders.addDecoder(clazz: [BBWebHook].self) { (source: AnyObject) -> [BBWebHook] in
@@ -149,6 +163,22 @@ class Decoders {
                 instance.hookId = Decoders.decodeOptional(clazz: Int32.self, source: sourceDictionary["hookId"])
                 instance.url = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["url"])
                 instance.isHidden = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["isHidden"])
+                return instance
+            }
+
+
+            // Decoder for [ClientGroupAssetMetaData]
+            Decoders.addDecoder(clazz: [ClientGroupAssetMetaData].self) { (source: AnyObject) -> [ClientGroupAssetMetaData] in
+                return Decoders.decode(clazz: [ClientGroupAssetMetaData].self, source: source)
+            }
+            // Decoder for ClientGroupAssetMetaData
+            Decoders.addDecoder(clazz: ClientGroupAssetMetaData.self) { (source: AnyObject) -> ClientGroupAssetMetaData in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = ClientGroupAssetMetaData()
+                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
+                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                instance.userId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["userId"])
+                instance.thumbUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["thumbUrl"])
                 return instance
             }
 
@@ -242,22 +272,6 @@ class Decoders {
             }
 
 
-            // Decoder for [InlineResponse200Items]
-            Decoders.addDecoder(clazz: [InlineResponse200Items].self) { (source: AnyObject) -> [InlineResponse200Items] in
-                return Decoders.decode(clazz: [InlineResponse200Items].self, source: source)
-            }
-            // Decoder for InlineResponse200Items
-            Decoders.addDecoder(clazz: InlineResponse200Items.self) { (source: AnyObject) -> InlineResponse200Items in
-                let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = InlineResponse200Items()
-                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
-                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
-                instance.userId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["userId"])
-                instance.thumbUrl = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["thumbUrl"])
-                return instance
-            }
-
-
             // Decoder for [JerichoConfiguration]
             Decoders.addDecoder(clazz: [JerichoConfiguration].self) { (source: AnyObject) -> [JerichoConfiguration] in
                 return Decoders.decode(clazz: [JerichoConfiguration].self, source: source)
@@ -282,6 +296,7 @@ class Decoders {
                 instance.sendWithoutVideo = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["sendWithoutVideo"])
                 instance.status = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["status"])
                 instance.mediaType = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["mediaType"])
+                instance.customInitialEmailSubjectLine = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["customInitialEmailSubjectLine"])
                 return instance
             }
 
@@ -366,6 +381,38 @@ class Decoders {
                 instance.content = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["content"])
                 instance.subject = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["subject"])
                 instance.generatedBy = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["generatedBy"])
+                return instance
+            }
+
+
+            // Decoder for [PromptMonthlyPerformance]
+            Decoders.addDecoder(clazz: [PromptMonthlyPerformance].self) { (source: AnyObject) -> [PromptMonthlyPerformance] in
+                return Decoders.decode(clazz: [PromptMonthlyPerformance].self, source: source)
+            }
+            // Decoder for PromptMonthlyPerformance
+            Decoders.addDecoder(clazz: PromptMonthlyPerformance.self) { (source: AnyObject) -> PromptMonthlyPerformance in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = PromptMonthlyPerformance()
+                instance.startDate = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["startDate"])
+                instance.endDate = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["endDate"])
+                instance.userBatchListsIdHelper = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["userBatchListsIdHelper"])
+                instance.promptIdHelper = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptIdHelper"])
+                return instance
+            }
+
+
+            // Decoder for [PromptOverview]
+            Decoders.addDecoder(clazz: [PromptOverview].self) { (source: AnyObject) -> [PromptOverview] in
+                return Decoders.decode(clazz: [PromptOverview].self, source: source)
+            }
+            // Decoder for PromptOverview
+            Decoders.addDecoder(clazz: PromptOverview.self) { (source: AnyObject) -> PromptOverview in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = PromptOverview()
+                instance.startDate = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["startDate"])
+                instance.endDate = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["endDate"])
+                instance.userBatchListsIdHelper = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["userBatchListsIdHelper"])
+                instance.promptIdHelper = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["promptIdHelper"])
                 return instance
             }
 

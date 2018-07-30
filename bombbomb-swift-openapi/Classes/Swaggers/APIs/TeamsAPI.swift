@@ -34,7 +34,7 @@ public class TeamsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example="aeiou", contentType=application/json}]
+     - examples: [{contentType=application/json, example=""}]
      
      - parameter teamId: (path) The team id 
      - parameter admin: (form) Set if the user is an admin of this team. (optional)
@@ -232,11 +232,11 @@ public class TeamsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "id" : "aeiou",
-  "name" : "aeiou",
-  "createdDate" : "aeiou"
-}, contentType=application/json}]
+     - examples: [{contentType=application/json, example={
+  "createdDate" : "createdDate",
+  "name" : "name",
+  "id" : "id"
+}}]
      
      - parameter teamId: (path) The team id 
      - parameter name: (form) The subteam&#39;s name. 
@@ -282,7 +282,7 @@ public class TeamsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example="aeiou", contentType=application/json}]
+     - examples: [{contentType=application/json, example=""}]
      
      - parameter teamId: (path) The team id 
      - parameter subteamId: (form) The subteam you wish to delete. 
@@ -382,15 +382,20 @@ public class TeamsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
+     - examples: [{contentType=application/json, example={
+  "totalPages" : 0,
   "items" : [ {
-    "id" : "aeiou",
-    "userId" : "aeiou",
-    "name" : "aeiou",
-    "thumbUrl" : "aeiou"
-  } ],
-  "totalPages" : ""
-}, contentType=application/json}]
+    "name" : "name",
+    "id" : "id",
+    "thumbUrl" : "thumbUrl",
+    "userId" : "userId"
+  }, {
+    "name" : "name",
+    "id" : "id",
+    "thumbUrl" : "thumbUrl",
+    "userId" : "userId"
+  } ]
+}}]
      
      - parameter assetType: (query) The type of assets. 
      - parameter teamId: (query) The team containing the assets. (optional)
@@ -498,24 +503,43 @@ public class TeamsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example=[ {
-  "clientGroupId" : "aeiou",
-  "exampleVideoId" : "aeiou",
-  "sendWithoutVideo" : true,
-  "status" : "aeiou",
-  "promptIntro" : "aeiou",
-  "promptBody" : "aeiou",
-  "emailSubject" : "aeiou",
-  "printToTemplate" : true,
-  "mediaType" : "aeiou",
-  "id" : "aeiou",
+     - examples: [{contentType=application/json, example=[ {
+  "promptBody" : "promptBody",
+  "followUpVideoId" : "followUpVideoId",
+  "emailBody" : "emailBody",
+  "customInitialEmailSubjectLine" : "customInitialEmailSubjectLine",
+  "clientGroupId" : "clientGroupId",
   "sendDate" : "2000-01-23T04:56:07.000+00:00",
-  "emailId" : "aeiou",
-  "followUpVideoId" : "aeiou",
-  "emailBody" : "aeiou",
   "isPrompt" : true,
-  "promptSubject" : "aeiou"
-} ], contentType=application/json}]
+  "emailId" : "emailId",
+  "mediaType" : "mediaType",
+  "exampleVideoId" : "exampleVideoId",
+  "emailSubject" : "emailSubject",
+  "promptSubject" : "promptSubject",
+  "printToTemplate" : true,
+  "sendWithoutVideo" : true,
+  "id" : "id",
+  "promptIntro" : "promptIntro",
+  "status" : "status"
+}, {
+  "promptBody" : "promptBody",
+  "followUpVideoId" : "followUpVideoId",
+  "emailBody" : "emailBody",
+  "customInitialEmailSubjectLine" : "customInitialEmailSubjectLine",
+  "clientGroupId" : "clientGroupId",
+  "sendDate" : "2000-01-23T04:56:07.000+00:00",
+  "isPrompt" : true,
+  "emailId" : "emailId",
+  "mediaType" : "mediaType",
+  "exampleVideoId" : "exampleVideoId",
+  "emailSubject" : "emailSubject",
+  "promptSubject" : "promptSubject",
+  "printToTemplate" : true,
+  "sendWithoutVideo" : true,
+  "id" : "id",
+  "promptIntro" : "promptIntro",
+  "status" : "status"
+} ]}]
      
      - parameter teamId: (path) The team whose Jericho sends you wish to see. 
 
@@ -558,23 +582,23 @@ public class TeamsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "delivered" : "",
-  "promptsOptedOut" : "",
-  "abuseComplaints" : "",
-  "click" : "",
-  "videoPlay" : "",
-  "promptsWithRecordings" : "",
-  "promptsSent" : "",
-  "uniqueLandingPageViews" : "",
-  "bounce" : "",
-  "contacts" : "",
-  "jerichoId" : "",
-  "open" : "",
-  "sent" : "",
-  "uniqueViews" : "",
-  "landingPageViews" : ""
-}, contentType=application/json}]
+     - examples: [{contentType=application/json, example={
+  "promptsOptedOut" : 1,
+  "bounce" : 7,
+  "abuseComplaints" : 4,
+  "delivered" : 2,
+  "sent" : 6,
+  "click" : 3,
+  "uniqueLandingPageViews" : 5,
+  "jerichoId" : 0,
+  "promptsSent" : 1,
+  "promptsWithRecordings" : 1,
+  "uniqueViews" : 1,
+  "landingPageViews" : 5,
+  "open" : 9,
+  "videoPlay" : 2,
+  "contacts" : 7
+}}]
      
      - parameter jerichoId: (path) ID of the Jericho job 
      - parameter teamId: (path) ID of team through which Jericho was sent 
@@ -681,6 +705,89 @@ public class TeamsAPI: APIBase {
     }
 
     /**
+     Jericho Monthly Stats
+     
+     - parameter month: (path) The month whose Jericho sends you wish to see. 
+     - parameter year: (path) The year whose Jericho sends you wish to see. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getPromptMonthlyStats(month month: String, year: String, completion: ((data: String?, error: ErrorType?) -> Void)) {
+        getPromptMonthlyStatsWithRequestBuilder(month: month, year: year).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     Jericho Monthly Stats
+     - GET /team/{month}/{year}/monthStats
+     - Jericho Monthly Stats
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     - examples: [{contentType=application/json, example=""}]
+     
+     - parameter month: (path) The month whose Jericho sends you wish to see. 
+     - parameter year: (path) The year whose Jericho sends you wish to see. 
+
+     - returns: RequestBuilder<String> 
+     */
+    public class func getPromptMonthlyStatsWithRequestBuilder(month month: String, year: String) -> RequestBuilder<String> {
+        var path = "/team/{month}/{year}/monthStats"
+        path = path.stringByReplacingOccurrencesOfString("{month}", withString: "\(month)", options: .LiteralSearch, range: nil)
+        path = path.stringByReplacingOccurrencesOfString("{year}", withString: "\(year)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<String>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+     Get Prompt Overview
+     
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getPromptOverview(completion: ((data: String?, error: ErrorType?) -> Void)) {
+        getPromptOverviewWithRequestBuilder().execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     Get Prompt Overview
+     - GET /team/promptOverview
+     - Get Prompt Overview
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     - examples: [{contentType=application/json, example=""}]
+
+     - returns: RequestBuilder<String> 
+     */
+    public class func getPromptOverviewWithRequestBuilder() -> RequestBuilder<String> {
+        let path = "/team/promptOverview"
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<String>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
      List Subteams
      
      - parameter teamId: (path) The team id 
@@ -697,14 +804,15 @@ public class TeamsAPI: APIBase {
      List Subteams
      - GET /team/{teamId}/subteam
      - Returns a collection of subteams for a parent team
-     - OAuth:
-       - type: oauth2
-       - name: BBOAuth2
-     - examples: [{example=[ {
-  "id" : "aeiou",
-  "name" : "aeiou",
-  "createdDate" : "aeiou"
-} ], contentType=application/json}]
+     - examples: [{contentType=application/json, example=[ {
+  "createdDate" : "createdDate",
+  "name" : "name",
+  "id" : "id"
+}, {
+  "createdDate" : "createdDate",
+  "name" : "name",
+  "id" : "id"
+} ]}]
      
      - parameter teamId: (path) The team id 
 
@@ -881,24 +989,25 @@ public class TeamsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "clientGroupId" : "aeiou",
-  "exampleVideoId" : "aeiou",
-  "sendWithoutVideo" : true,
-  "status" : "aeiou",
-  "promptIntro" : "aeiou",
-  "promptBody" : "aeiou",
-  "emailSubject" : "aeiou",
-  "printToTemplate" : true,
-  "mediaType" : "aeiou",
-  "id" : "aeiou",
+     - examples: [{contentType=application/json, example={
+  "promptBody" : "promptBody",
+  "followUpVideoId" : "followUpVideoId",
+  "emailBody" : "emailBody",
+  "customInitialEmailSubjectLine" : "customInitialEmailSubjectLine",
+  "clientGroupId" : "clientGroupId",
   "sendDate" : "2000-01-23T04:56:07.000+00:00",
-  "emailId" : "aeiou",
-  "followUpVideoId" : "aeiou",
-  "emailBody" : "aeiou",
   "isPrompt" : true,
-  "promptSubject" : "aeiou"
-}, contentType=application/json}]
+  "emailId" : "emailId",
+  "mediaType" : "mediaType",
+  "exampleVideoId" : "exampleVideoId",
+  "emailSubject" : "emailSubject",
+  "promptSubject" : "promptSubject",
+  "printToTemplate" : true,
+  "sendWithoutVideo" : true,
+  "id" : "id",
+  "promptIntro" : "promptIntro",
+  "status" : "status"
+}}]
      
      - parameter config: (body) JSON representing a Jericho configuration 
      - parameter teamId: (path) The ID of the team. 
@@ -939,7 +1048,7 @@ public class TeamsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example="aeiou", contentType=application/json}]
+     - examples: [{contentType=application/json, example=""}]
      
      - parameter teamId: (path) The team id 
      - parameter userId: (path) The user id of the member being removed. 
@@ -984,11 +1093,11 @@ public class TeamsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "id" : "aeiou",
-  "name" : "aeiou",
-  "createdDate" : "aeiou"
-}, contentType=application/json}]
+     - examples: [{contentType=application/json, example={
+  "createdDate" : "createdDate",
+  "name" : "name",
+  "id" : "id"
+}}]
      
      - parameter teamId: (path) The team id 
      - parameter memberUserId: (path) The user id of the member being resent an invitation. 
@@ -1079,11 +1188,11 @@ public class TeamsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "id" : "aeiou",
-  "name" : "aeiou",
-  "createdDate" : "aeiou"
-}, contentType=application/json}]
+     - examples: [{contentType=application/json, example={
+  "createdDate" : "createdDate",
+  "name" : "name",
+  "id" : "id"
+}}]
      
      - parameter teamId: (path) The team id 
      - parameter name: (form) The name of the team (optional)

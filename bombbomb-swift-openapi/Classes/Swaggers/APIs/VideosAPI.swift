@@ -30,11 +30,11 @@ public class VideosAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "progress" : "",
+     - examples: [{contentType=application/json, example={
+  "isFailed" : true,
   "isReady" : true,
-  "isFailed" : true
-}, contentType=application/json}]
+  "progress" : 0
+}}]
      
      - parameter videoId: (path) The video&#39;s id. 
 
@@ -77,16 +77,16 @@ public class VideosAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
+     - examples: [{contentType=application/json, example={
+  "user_id" : "user_id",
+  "width" : 0,
+  "vid_id" : "vid_id",
   "https" : true,
-  "content" : "aeiou",
-  "height" : "",
-  "email" : "aeiou",
-  "width" : "",
-  "user_id" : "aeiou",
-  "client_id" : "aeiou",
-  "vid_id" : "aeiou"
-}, contentType=application/json}]
+  "email" : "email",
+  "client_id" : "client_id",
+  "content" : "content",
+  "height" : 6
+}}]
      
      - parameter width: (query) The width of the recorder to present. (optional)
      - parameter videoId: (query) The id of the video to record (optional)
@@ -133,19 +133,19 @@ public class VideosAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "videoUrls" : [ "aeiou" ],
-  "id" : "aeiou",
-  "height" : "",
-  "status" : "aeiou",
-  "description" : "aeiou",
-  "width" : "",
-  "name" : "aeiou",
-  "userId" : "aeiou",
-  "thumbUrl" : "aeiou",
-  "shortUrl" : "aeiou",
-  "uploadDate" : "aeiou"
-}, contentType=application/json}]
+     - examples: [{contentType=application/json, example={
+  "uploadDate" : "uploadDate",
+  "shortUrl" : "shortUrl",
+  "name" : "name",
+  "width" : 6,
+  "description" : "description",
+  "id" : "id",
+  "thumbUrl" : "thumbUrl",
+  "videoUrls" : [ "videoUrls", "videoUrls" ],
+  "userId" : "userId",
+  "status" : "status",
+  "height" : 0
+}}]
      
      - parameter videoId: (form) The id of the video to mark as done. 
      - parameter filename: (form) The filename that was chosen as the final video. 
@@ -190,7 +190,7 @@ public class VideosAPI: APIBase {
      Generate Signed Url
      - POST /video/signedUpload
      - Generates a signed url to be used for video uploads.
-     - examples: [{example="aeiou", contentType=application/json}]
+     - examples: [{contentType=application/json, example=""}]
      
      - parameter policy: (body) The policy to sign 
      - parameter v4: (form) Whether to do v4 signing (optional)

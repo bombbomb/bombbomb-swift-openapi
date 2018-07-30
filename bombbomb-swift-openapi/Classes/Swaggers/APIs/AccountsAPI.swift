@@ -78,7 +78,7 @@ public class AccountsAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example="aeiou", contentType=application/json}]
+     - examples: [{contentType=application/json, example=""}]
      
      - parameter teamId: (form) The team id 
      - parameter firstName: (form) First name of the user. 

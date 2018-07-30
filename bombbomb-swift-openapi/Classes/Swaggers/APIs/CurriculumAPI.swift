@@ -30,22 +30,49 @@ public class CurriculumAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example=[ {
+     - examples: [{contentType=application/json, example=[ {
+  "imgUrl" : "imgUrl",
+  "htmlIntro" : "htmlIntro",
+  "name" : "name",
+  "renderAs" : "renderAs",
   "progress" : [ {
-    "id" : "aeiou",
-    "completedDate" : "2000-01-23T04:56:07.000+00:00",
-    "curriculumId" : "aeiou",
-    "userId" : "aeiou",
-    "curriculumItemId" : "aeiou"
+    "curriculumItemId" : "curriculumItemId",
+    "id" : "id",
+    "curriculumId" : "curriculumId",
+    "userId" : "userId",
+    "completedDate" : "2000-01-23T04:56:07.000+00:00"
+  }, {
+    "curriculumItemId" : "curriculumItemId",
+    "id" : "id",
+    "curriculumId" : "curriculumId",
+    "userId" : "userId",
+    "completedDate" : "2000-01-23T04:56:07.000+00:00"
   } ],
-  "imgUrl" : "aeiou",
-  "id" : "aeiou",
-  "renderAs" : "aeiou",
+  "id" : "id",
   "visibleToAllUsers" : true,
-  "name" : "aeiou",
-  "htmlIntro" : "aeiou",
-  "itemCount" : ""
-} ], contentType=application/json}]
+  "itemCount" : 0
+}, {
+  "imgUrl" : "imgUrl",
+  "htmlIntro" : "htmlIntro",
+  "name" : "name",
+  "renderAs" : "renderAs",
+  "progress" : [ {
+    "curriculumItemId" : "curriculumItemId",
+    "id" : "id",
+    "curriculumId" : "curriculumId",
+    "userId" : "userId",
+    "completedDate" : "2000-01-23T04:56:07.000+00:00"
+  }, {
+    "curriculumItemId" : "curriculumItemId",
+    "id" : "id",
+    "curriculumId" : "curriculumId",
+    "userId" : "userId",
+    "completedDate" : "2000-01-23T04:56:07.000+00:00"
+  } ],
+  "id" : "id",
+  "visibleToAllUsers" : true,
+  "itemCount" : 0
+} ]}]
      
      - parameter includeProgress: (query) Whether to return progress with the curriculum. (optional)
 
@@ -87,22 +114,49 @@ public class CurriculumAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example=[ {
-  "imgUrl" : "aeiou",
-  "id" : "aeiou",
+     - examples: [{contentType=application/json, example=[ {
+  "imgUrl" : "imgUrl",
+  "htmlIntro" : "htmlIntro",
+  "name" : "name",
   "progress" : [ {
-    "id" : "aeiou",
-    "completedDate" : "2000-01-23T04:56:07.000+00:00",
-    "curriculumId" : "aeiou",
-    "userId" : "aeiou",
-    "curriculumItemId" : "aeiou"
+    "curriculumItemId" : "curriculumItemId",
+    "id" : "id",
+    "curriculumId" : "curriculumId",
+    "userId" : "userId",
+    "completedDate" : "2000-01-23T04:56:07.000+00:00"
+  }, {
+    "curriculumItemId" : "curriculumItemId",
+    "id" : "id",
+    "curriculumId" : "curriculumId",
+    "userId" : "userId",
+    "completedDate" : "2000-01-23T04:56:07.000+00:00"
   } ],
-  "renderAs" : "aeiou",
+  "renderAs" : "renderAs",
+  "id" : "id",
   "visibleToAllUsers" : true,
-  "name" : "aeiou",
-  "htmlIntro" : "aeiou",
-  "itemCount" : ""
-} ], contentType=application/json}]
+  "itemCount" : 0
+}, {
+  "imgUrl" : "imgUrl",
+  "htmlIntro" : "htmlIntro",
+  "name" : "name",
+  "progress" : [ {
+    "curriculumItemId" : "curriculumItemId",
+    "id" : "id",
+    "curriculumId" : "curriculumId",
+    "userId" : "userId",
+    "completedDate" : "2000-01-23T04:56:07.000+00:00"
+  }, {
+    "curriculumItemId" : "curriculumItemId",
+    "id" : "id",
+    "curriculumId" : "curriculumId",
+    "userId" : "userId",
+    "completedDate" : "2000-01-23T04:56:07.000+00:00"
+  } ],
+  "renderAs" : "renderAs",
+  "id" : "id",
+  "visibleToAllUsers" : true,
+  "itemCount" : 0
+} ]}]
 
      - returns: RequestBuilder<[CurriculumWithProgress]> 
      */

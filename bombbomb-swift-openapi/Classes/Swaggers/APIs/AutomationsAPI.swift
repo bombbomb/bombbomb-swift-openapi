@@ -95,4 +95,45 @@ public class AutomationsAPI: APIBase {
         return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
 
+    /**
+     Get the number of pending scheduling calculations
+     
+     - parameter id: (path) The id of the automation 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func getSchedulingStatus(id id: String, completion: ((error: ErrorType?) -> Void)) {
+        getSchedulingStatusWithRequestBuilder(id: id).execute { (response, error) -> Void in
+            completion(error: error);
+        }
+    }
+
+
+    /**
+     Get the number of pending scheduling calculations
+     - GET /automation/{id}/scheduling/status
+     - Get the number of pending scheduling calculations
+     - OAuth:
+       - type: oauth2
+       - name: BBOAuth2
+     
+     - parameter id: (path) The id of the automation 
+
+     - returns: RequestBuilder<Void> 
+     */
+    public class func getSchedulingStatusWithRequestBuilder(id id: String) -> RequestBuilder<Void> {
+        var path = "/automation/{id}/scheduling/status"
+        path = path.stringByReplacingOccurrencesOfString("{id}", withString: "\(id)", options: .LiteralSearch, range: nil)
+        let URLString = bombbomb-swift-openapiAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [:]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Void>.Type = bombbomb-swift-openapiAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
 }

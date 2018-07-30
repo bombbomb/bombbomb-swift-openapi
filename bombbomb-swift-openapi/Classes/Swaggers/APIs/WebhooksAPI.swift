@@ -30,12 +30,12 @@ public class WebhooksAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example={
-  "isHidden" : true,
-  "userId" : "aeiou",
-  "hookId" : "",
-  "url" : "aeiou"
-}, contentType=application/json}]
+     - examples: [{contentType=application/json, example={
+  "hookId" : 0,
+  "userId" : "userId",
+  "url" : "url",
+  "isHidden" : true
+}}]
      
      - parameter hookUrl: (form) The Url of your listener 
 
@@ -78,7 +78,7 @@ public class WebhooksAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example="aeiou", contentType=application/json}]
+     - examples: [{contentType=application/json, example=""}]
      
      - parameter hookId: (path) The id of the webhook to delete 
 
@@ -119,12 +119,17 @@ public class WebhooksAPI: APIBase {
      - OAuth:
        - type: oauth2
        - name: BBOAuth2
-     - examples: [{example=[ {
-  "isHidden" : true,
-  "userId" : "aeiou",
-  "hookId" : "",
-  "url" : "aeiou"
-} ], contentType=application/json}]
+     - examples: [{contentType=application/json, example=[ {
+  "hookId" : 0,
+  "userId" : "userId",
+  "url" : "url",
+  "isHidden" : true
+}, {
+  "hookId" : 0,
+  "userId" : "userId",
+  "url" : "url",
+  "isHidden" : true
+} ]}]
 
      - returns: RequestBuilder<[BBWebHook]> 
      */
